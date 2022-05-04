@@ -23,17 +23,13 @@ export class ForumComponent implements OnInit {
   joinOrQuit() {
 
     if (this.hasJoinned) {
-      console.log("inside")
       this.userForumRelationService.deleteUserForumRelation(this.forum.id).subscribe(value => {
         this.hasJoinned = !value;
       }, error => {
         this.hasJoinned = true;
       });
     } else {
-      console.log("inside else")
-      console.log(this.authService.loggedUser)
       if (this.authService.loggedUser) {
-        console.log("inside if")
         this.userForumRelationService.addUserForumRelation(this.forum.id).subscribe(value => {
             this.hasJoinned = !!value;
           }
@@ -44,7 +40,6 @@ export class ForumComponent implements OnInit {
 
   getUserForumRelation() {
     this.userForumRelationService.getUserForumRelation(this.forum.id).subscribe(value => {
-      console.log(value)
       if (value === null) {
         this.hasJoinned = false;
       } else {

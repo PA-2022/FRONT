@@ -29,4 +29,9 @@ export class UserForumRelationService {
     );
   }
 
+  getAllLoggedUserRelations(): Observable<Array<UserForumRelation>>{
+    return this.httpclient.get<Array<UserForumRelation>>(
+      'http://localhost:8080/user-forum-relation/all-by-logged-user'
+    );
+  }
 }
