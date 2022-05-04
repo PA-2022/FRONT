@@ -4,7 +4,7 @@
       <img style="max-width: 15%; border-radius: 100%; margin-top: 10px; display: inline"
            src="https://a.thumbs.redditmedia.com/zDOFJTXd6fmlD58VDGypiV94Leflz11woxmgbGY6p_4.png">
       <h1 style=" display: inline; margin-left: 2vw">{{forum.title}}</h1>
-      <button style="display: inline; margin-left: 2vw; background-color: #FFC500" mat-raised-button color="accent" (click)="joinOrQuit()">{{hasJoinned ? 'Quit' : 'Join'}}</button>
+      <button *ngIf="loggedUser" style="display: inline; margin-left: 2vw; background-color: #FFC500" mat-raised-button color="accent" (click)="joinOrQuit()">{{hasJoinned ? 'Quit' : 'Join'}}</button>
     </div>
   </div>
 </div>
@@ -33,6 +33,15 @@
       <p>{{forum.description}}</p>
       <hr style="width: 50%; margin: auto;size: 1px">
       <p style="display: flex; align-content: baseline; align-items: flex-end "> <mat-icon>cake</mat-icon> <label> &nbsp; created {{forum.creationDate | date: "MMM dd, YYYY"}}</label></p>
+
+      <div *ngIf="loggedUser">
+        <hr style="width: 50%; margin: auto;size: 1px">
+        <br>
+        <button style="background-color: #FFC500; display: block; width: 90%; margin: auto;"
+                mat-raised-button color="accent" (click)="createPost()">Create a post</button>
+        <br>
+      </div>
+
     </div>
   </div>
 

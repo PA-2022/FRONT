@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {UserForumRelationService} from "../shared/services/userForumRelationService";
 import {AuthService} from "../shared/services/authService";
+import {HiddenParamsService} from "../shared/services/hiddenParamsService";
 
 @Component({
   selector: 'app-forum',
@@ -11,8 +12,10 @@ import {AuthService} from "../shared/services/authService";
 export class ForumComponent implements OnInit {
   public forum: any
   public hasJoinned = false;
+  public loggedUser = this.authService.loggedUser;
 
-  constructor(private route: ActivatedRoute, private userForumRelationService: UserForumRelationService, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private userForumRelationService: UserForumRelationService,
+              private authService: AuthService, private router: Router, private hiddenParamsService: HiddenParamsService) {
     this.forum = route.snapshot.data['forumResolver'];
   }
 
@@ -29,7 +32,7 @@ export class ForumComponent implements OnInit {
         this.hasJoinned = true;
       });
     } else {
-      if (this.authService.loggedUser) {
+      if (this.loggedUser) {
         this.userForumRelationService.addUserForumRelation(this.forum.id).subscribe(value => {
             this.hasJoinned = !!value;
           }
@@ -48,5 +51,11 @@ export class ForumComponent implements OnInit {
     }, error => {
       this.hasJoinned = false;
     })
+  }
+
+  createPost() {
+    this.hiddenParamsService.setParam(this.forum.id);
+    this.router.navigate(
+      ['/post-create']);
   }
 }
