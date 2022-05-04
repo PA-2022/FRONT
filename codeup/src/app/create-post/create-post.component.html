@@ -1,0 +1,17 @@
+<div class="container" style="max-width: 100%; min-height: 100vh; background-color: #dae0e6; padding-bottom: 20px">
+  <div class="row">
+    <div class="col col-md-8 sort-container white-block">
+      <h1 style="padding: 5px">Create a post</h1>
+      <hr>
+      <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+      <br>
+      <button style="background-color: orange; float: right" mat-raised-button color="accent" (click)="createPost()">Create post</button>
+
+    </div>
+    <div class="col col-md-2 sort-container white-block about">
+      <h2>About this community</h2>
+      <p>All about the 𝚓𝚊𝚟𝚊𝚜𝚌𝚛𝚒𝚙𝚝 programming language!</p>
+      <p>400 members</p>
+    </div>
+  </div>
+</div>
