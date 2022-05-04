@@ -18,4 +18,9 @@ export class ForumService {
       'http://localhost:8080/forums/all/limit/' + limit + '/offset/' + offset
     );
   }
+
+  getForumById(id: number): Observable<Forum> {
+    return this.httpclient.get<Forum>(
+      'http://localhost:8080/forums/0' + id)
+  }
 }

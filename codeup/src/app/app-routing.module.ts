@@ -8,11 +8,18 @@ import {AccountComponent} from "./account/account.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
 import {CreatePostComponent} from "./create-post/create-post.component";
 import {UserResolver} from "./resolvers/userResolver";
+import {ForumResolver} from "./resolvers/forumResolver";
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path : 'forum/:id', component: ForumComponent },
+  {
+    path : 'forum/:id',
+    component: ForumComponent,
+    resolve: {
+      forumResolver: ForumResolver
+    },
+  },
   { path : 'comment/:id', component: ForumComponent },
   { path : 'post/:id', component: PostComponent },
   { path : 'search', component: SearchComponent },

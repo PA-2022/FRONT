@@ -1,9 +1,9 @@
-<div class="container" style="max-width: 100%; background-color: #848485; padding-bottom: 20px">
+<div class="container top-container" style="background-color: {{forum.color}}">
   <div class="row">
     <div class="col col-md-8" style="margin: auto; margin-top: 2vh; padding: 0">
       <img style="max-width: 15%; border-radius: 100%; margin-top: 10px; display: inline"
            src="https://a.thumbs.redditmedia.com/zDOFJTXd6fmlD58VDGypiV94Leflz11woxmgbGY6p_4.png">
-      <h1 style=" display: inline; margin-left: 2vw">Javascript</h1>
+      <h1 style=" display: inline; margin-left: 2vw">{{forum.title}}</h1>
       <button style="display: inline; margin-left: 2vw; background-color: #FFC500" mat-raised-button color="accent" >Join</button>
     </div>
   </div>
@@ -23,10 +23,16 @@
         New
       </button>
     </div>
-    <div class="col col-md-2 sort-container white-block about">
-      <h2>About this community</h2>
-      <p>All about the 𝚓𝚊𝚟𝚊𝚜𝚌𝚛𝚒𝚙𝚝 programming language!</p>
-      <p>400 members</p>
+    <div class="col col-md-3 sort-container white-block about">
+      <h2 style="
+         background-image: url('https://media.discordapp.net/attachments/951109231099133972/971419158505984050/doodad.png');
+         background-color: {{forum.color}};">
+
+        About this community</h2>
+
+      <p>{{forum.description}}</p>
+      <hr style="width: 50%; margin: auto;size: 1px">
+      <p style="display: flex; align-content: baseline; align-items: flex-end "> <mat-icon>cake</mat-icon> <label> &nbsp; created {{forum.creationDate | date: "MMM dd, YYYY"}}</label></p>
     </div>
   </div>
 
@@ -54,7 +60,7 @@
         </div>
       </div>
     </div>
-    <div class="col col-md-2 sort-container white-block about" style="background-color: transparent">
+    <div class="col col-md-3 sort-container white-block about" style="background-color: transparent">
     </div>
   </div>
 </div>
