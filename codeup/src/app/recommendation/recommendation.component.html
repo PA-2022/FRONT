@@ -4,12 +4,12 @@
     <a href="/forum/{{forum.id}}">{{index + 1}} - &nbsp;<img
     style="width: 30px; border-radius: 100%"
     src="https://a.thumbs.redditmedia.com/zDOFJTXd6fmlD58VDGypiV94Leflz11woxmgbGY6p_4.png"> &nbsp;{{forum.title}}</a>&nbsp;
-    <button style="background-color: orange; border-radius: 60px; padding: 0; float: right; margin-right: 20px"
+    <button style="background-color: #FFC500; border-radius: 60px; padding: 0; float: right; margin-right: 20px"
             mat-raised-button color="accent">Join
     </button>
   </p>
   <button
-    style="background-color: orange; border-radius: 60px; padding: 0; width: 90%; display: block; margin: auto; margin-bottom: 10px"
+    style="background-color: #FFC500; border-radius: 60px; padding: 0; width: 90%; display: block; margin: auto; margin-bottom: 10px"
     mat-raised-button color="accent"
     *ngIf="loadMore" (click)="getMore()">Show more
   </button>

@@ -47,3 +47,17 @@ a img {
   margin-right: auto;
   margin-left: auto;
 }
+.drop-down-account {
+  background-color: transparent;
+  color: #FFC500;
+  border: none;
+}
+.drop-down-account:hover{
+  background-color: transparent;
+  color: #FFC500;
+  border: none;
+}
+
+.dropdown-toggle::after{
+  margin: auto!important;
+}
