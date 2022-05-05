@@ -18,7 +18,7 @@
           </div>
           <br>
           <h2>{{post.title}}</h2>
-          <p class="tag">Exemple</p>
+          <p class="tag">{{forum.title}}</p>
           <div [innerHTML]="post.content"></div>
 
           <div style="margin-top: 4vh; display: flex">
@@ -33,9 +33,17 @@
 
 
     <div class="col col-md-3 sort-container white-block about">
-      <h2>About this community</h2>
-      <p>All about the 𝚓𝚊𝚟𝚊𝚜𝚌𝚛𝚒𝚙𝚝 programming language!</p>
-      <p>400 members</p>
+      <h2 style="
+         background-image: url('https://media.discordapp.net/attachments/951109231099133972/971419158505984050/doodad.png');
+         color: black;
+
+         background-color: {{forum.color}};">
+
+        <p>About this community</p></h2>
+
+      <p>{{forum.description}}</p>
+      <hr style="width: 50%; margin: auto;size: 1px">
+      <p style="display: flex; align-content: baseline; align-items: flex-end "> <mat-icon>cake</mat-icon> <label> &nbsp; created {{forum.creationDate | date: "MMM dd, YYYY"}}</label></p>
     </div>
 
     <div class="col col-md-8 white-block sort-container">
