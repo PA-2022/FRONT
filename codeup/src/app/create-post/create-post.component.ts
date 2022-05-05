@@ -4,6 +4,8 @@ import {HiddenParamsService} from "../shared/services/hiddenParamsService";
 import {Post} from "../shared/entities/Post";
 import {PostService} from "../shared/services/postService";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ForumService} from "../shared/services/forumService";
+import {Forum} from "../shared/entities/Forum";
 
 @Component({
   selector: 'app-create-post',
@@ -13,6 +15,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class CreatePostComponent implements OnInit {
   htmlContent: any;
   forumId: number = this.hiddenParamsService.getParam() ?? 1;
+  forum: any = undefined;
   content: any = null;
   code: any = null;
   title: any = null;
@@ -20,8 +23,11 @@ export class CreatePostComponent implements OnInit {
   postId: number | undefined | null = null;
 
   constructor(private hiddenParamsService: HiddenParamsService, private postService: PostService,
-              private snackBar: MatSnackBar, private router: Router) {
+              private snackBar: MatSnackBar, private router: Router, private forumService: ForumService) {
     console.log(this.forumId)
+    forumService.getForumById(this.forumId).subscribe(value => {
+        this.forum = value;
+    })
   }
 
   ngOnInit(): void {
