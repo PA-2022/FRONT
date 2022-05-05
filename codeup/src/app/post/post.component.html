@@ -13,19 +13,17 @@
         </div>
         <div class="col-md-10">
           <div>
-            <p style="display: inline; font-weight: bold">Jean Bidon . </p>
-            <p style="display: inline; color: dimgray">&nbsp;&nbsp;Published 3 minutes ago</p>
+            <a href="/account/{{user.id}}" style="display: inline; font-weight: bold">{{user ? user.username : "deleted"}} . </a>
+            <p style="display: inline; color: dimgray">&nbsp;&nbsp;Published {{post.creationDate | date: "MMM dd, YYYY"}}</p>
           </div>
           <br>
-          <h2>Best way to filter array of objects by index in JavaScript</h2>
-          <p class="tag">JavaScript</p>
-          <p>i have an array like this</p>
-          <img style="width: fit-content"
-               src="https://i0.wp.com/www.cssscript.com/wp-content/uploads/2021/07/code-editor-iblize.png?fit=584%2C431&ssl=1">
+          <h2>{{post.title}}</h2>
+          <p class="tag">Exemple</p>
+          <div [innerHTML]="post.content"></div>
 
           <div style="margin-top: 4vh; display: flex">
             <mat-icon style="display:inline-block"> comment</mat-icon>
-            <p style="display: inline-block">&nbsp; 40 comments</p>
+            <p style="display: inline-block">&nbsp; 0 comments</p>
             <mat-icon style="display:inline-block; margin-left: 2vw"> share</mat-icon>
             <p style="display: inline-block">share this post</p>
           </div>

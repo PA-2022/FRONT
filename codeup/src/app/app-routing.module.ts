@@ -9,6 +9,7 @@ import {NotFoundComponent} from "./not-found/not-found.component";
 import {CreatePostComponent} from "./create-post/create-post.component";
 import {UserResolver} from "./resolvers/userResolver";
 import {ForumResolver} from "./resolvers/forumResolver";
+import {PostResolver} from "./resolvers/postResolver";
 
 
 const routes: Routes = [
@@ -21,7 +22,13 @@ const routes: Routes = [
     },
   },
   { path : 'comment/:id', component: ForumComponent },
-  { path : 'post/:id', component: PostComponent },
+  {
+    path : 'post/:id',
+    component: PostComponent,
+    resolve: {
+      postResolver: PostResolver
+    }
+  },
   { path : 'search', component: SearchComponent },
   {
     path : 'account/:id',

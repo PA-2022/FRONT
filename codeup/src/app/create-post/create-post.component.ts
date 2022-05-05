@@ -45,7 +45,7 @@ export class CreatePostComponent implements OnInit {
         duration: 3000,
         panelClass: ['success-snackbar']
       });
-      this.router.navigate([""])
+      this.router.navigate(["/post/"+this.postId])
     }, error => {
       this.loading = false;
       this.snackBar.open("Error !", "An error has occured please try again !", {
