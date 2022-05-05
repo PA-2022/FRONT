@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../shared/services/authService";
+import {MatDialogRef} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-signin',
@@ -10,25 +12,47 @@ import {AuthService} from "../shared/services/authService";
 export class SigninComponent implements OnInit {
 
   form: any = {
-    username: null,
-    email: null,
-    password: null
+    username: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: ""
   };
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private dialogRef: MatDialogRef<SigninComponent>,private snackBar: MatSnackBar) { }
   ngOnInit(): void {
   }
   onSubmit(): void {
-    this.authService.register(this.form.value).subscribe(
+    this.authService.register(this.form).subscribe(
       () => {
-        return this.router.navigate(['home']);
+        this.authService.login({
+          username: this.form.username,
+          password: this.form.password
+        }).subscribe(() => {
+          this.authService.emitAuthStatus(true);
+          this.authService.getCurrentUser().subscribe(() => {
+            this.dialogRef.close();
+            this.snackBar.open("Account created !", "You have been logged in.", {
+              duration: 3000,
+              panelClass: ['success-snackbar']
+            });
+            return this.router.navigate(['account/' + this.authService.loggedUser?.id]);
+          })
+        });
       },
       (error) => {
-        error.log(error);
-        return;
+        this.snackBar.open("Account creation went wrong...", "Try again", {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
       }
     );
+  }
+
+  disabled() {
+    return this.form.username.length < 3  || this.form.firstname.length < 3 || this.form.lastname <3 || this.form.password < 6
+      || this.form.email === 0;
   }
 }

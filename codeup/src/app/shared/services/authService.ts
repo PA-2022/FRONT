@@ -19,14 +19,14 @@ export class AuthService {
     );
   }
 
-  register(value: object): Observable<any> {
+  register(value: any): Observable<any> {
     const params = {
-
-      email:"test@test.com",
-      password:"testaaaa",
-      username:"test",
-      firstname:"test",
-      lastname:"test"
+      id: null,
+      email: value.email,
+      password: value.password,
+      username: value.username,
+      firstname: value.firstname,
+      lastname: value.lastname
     }
 
     return this.httpclient.post('http://localhost:8080/users/register', params);
