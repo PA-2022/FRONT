@@ -5,9 +5,9 @@
       <div class="row">
         <div class="col-md-2">
           <div class="center">
-            <mat-icon>expand_less</mat-icon>
-            <p style="margin:0">15.3K</p>
-            <mat-icon>expand_more</mat-icon>
+            <mat-icon style="cursor: pointer" (click)="upvote(true)" class="{{userPostVote && userPostVote.upvote ? 'upvote' : null}}">expand_less</mat-icon>
+            <p style="margin:0">{{post.note}}</p>
+            <mat-icon style="cursor: pointer" (click)="upvote(false)" class="{{userPostVote && !userPostVote.upvote ? 'downvote' : null}}">expand_more</mat-icon>
           </div>
         </div>
         <div class="col-md-10">

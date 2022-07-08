@@ -6,6 +6,7 @@ import {UserService} from "../shared/services/userService";
 import {ForumService} from "../shared/services/forumService";
 import {PostService} from "../shared/services/postService";
 import {AuthService} from "../shared/services/authService";
+import {PostVote} from "../shared/entities/PostVote";
 
 @Component({
   selector: 'app-post',
@@ -23,6 +24,7 @@ export class PostComponent implements OnInit {
   public loggedUser = this.authService.loggedUser;
   editMessage: any | null | undefined;
   commentCount: any;
+  userPostVote: any;
 
 
   constructor(private route: ActivatedRoute, private userService: UserService, private forumService: ForumService, private postService: PostService, private authService: AuthService) {
@@ -34,6 +36,12 @@ export class PostComponent implements OnInit {
       this.forum = value
     });
     this.getComments();
+    if(this.post.id) {
+      this.postService.getUserUpvote(this.post.id).subscribe(data => {
+        this.userPostVote = data;
+        console.log(this.userPostVote)
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -105,5 +113,22 @@ export class PostComponent implements OnInit {
     this.postService.getCommentCount(Number(this.post.id)).subscribe(data => {
       this.commentCount = data;
     })
+  }
+
+  upvote(isUpvote: boolean) {
+    console.log("in")
+    const upvote: PostVote = {
+      id: this.userPostVote ? this.userPostVote.id : null,
+      upvote: isUpvote,
+      postId: this.post.id,
+      userId: null
+    }
+    this.postService.upvote(upvote).subscribe(data => {
+      if(this.post.id) {
+        this.postService.getPostById(this.post.id).subscribe(post => {
+          this.post = post;
+        })
+      }
+    });
   }
 }

@@ -42,7 +42,8 @@ export class CreatePostComponent implements OnInit {
       creationDate: null,
       lastUpdateDate: null,
       userId: null,
-      forumId: this.forumId
+      forumId: this.forumId,
+      note: null
     }
     this.loading = true;
     this.postService.addPost(post).subscribe(value => {
