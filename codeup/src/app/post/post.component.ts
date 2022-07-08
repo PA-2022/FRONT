@@ -36,10 +36,9 @@ export class PostComponent implements OnInit {
       this.forum = value
     });
     this.getComments();
-    if(this.post.id) {
+    if(this.post.id && this.loggedUser) {
       this.postService.getUserUpvote(this.post.id).subscribe(data => {
         this.userPostVote = data;
-        console.log(this.userPostVote)
       });
     }
   }
@@ -116,7 +115,6 @@ export class PostComponent implements OnInit {
   }
 
   upvote(isUpvote: boolean) {
-    console.log("in")
     const upvote: PostVote = {
       id: this.userPostVote ? this.userPostVote.id : null,
       upvote: isUpvote,

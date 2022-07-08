@@ -24,7 +24,6 @@ export class CreatePostComponent implements OnInit {
 
   constructor(private hiddenParamsService: HiddenParamsService, private postService: PostService,
               private snackBar: MatSnackBar, private router: Router, private forumService: ForumService) {
-    console.log(this.forumId)
     forumService.getForumById(this.forumId).subscribe(value => {
         this.forum = value;
     })
