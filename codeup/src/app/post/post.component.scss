@@ -61,6 +61,8 @@
   align-items: center;
 }
 
+.left {}
+
 .about {
   padding: 0;
 }
@@ -114,6 +116,11 @@ a {
   border-radius: 4px;
 }
 
+.blog-comment .vote {
+  position: relative;
+  float: left;
+}
+
 .blog-comment img.avatar {
   position: relative;
   float: left;
@@ -126,7 +133,7 @@ a {
 .blog-comment .post-comments{
   border: 1px solid #eee;
   margin-bottom: 20px;
-  margin-left: 85px;
+  margin-left: 12%;
   margin-right: 0px;
   padding: 10px 20px;
   position: relative;
@@ -136,7 +143,6 @@ a {
   border-radius: 4px;
   background: #fff;
   color: #6b6e80;
-  position: relative;
 }
 
 .blog-comment .meta {
