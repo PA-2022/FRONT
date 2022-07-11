@@ -36,6 +36,7 @@ import {AngularEditorModule} from "@kolkov/angular-editor";
 import {HttpRequestInterceptor} from "./shared/implementation/HttpRequestInterceptor";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {UserResolver} from "./resolvers/userResolver";
+import { CodeEditorComponent } from './code-editor/code-editor.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {UserResolver} from "./resolvers/userResolver";
     LoginComponent,
     SigninComponent,
     NotFoundComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    CodeEditorComponent
   ],
     imports: [
         BrowserModule,
