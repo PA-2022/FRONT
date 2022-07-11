@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import { Observable} from 'rxjs';
 import {Post} from "../entities/Post";
 import {Comment} from "../entities/Comment";
+import {PostVote} from "../entities/PostVote";
+import {CommentVote} from "../entities/CommentVote";
 @Injectable({
   providedIn: 'root'
 })
@@ -46,6 +48,29 @@ export class PostService {
   getCommentCount(postId: number) {
     return this.httpclient.get<number>(
       'http://localhost:8080/comments/comment/post/' + postId + '/count'
+    )
+  }
+
+  upvote(comment: PostVote) {
+    return this.httpclient.put<PostVote>(
+      'http://localhost:8080/posts-vote' , comment
+    );
+  }
+  getUserUpvote(postId: number) {
+    return this.httpclient.get<PostVote>(
+      'http://localhost:8080/posts-vote/post/' + postId
+    );
+  }
+
+  upvoteComment(upvote: CommentVote) {
+    return this.httpclient.put<CommentVote>(
+      'http://localhost:8080/comment-votes' , upvote
+    );
+  }
+
+  getCommentById(commentId: number) {
+    return this.httpclient.get<any>(
+      'http://localhost:8080/comments/comment-post/' + commentId
     )
   }
 }

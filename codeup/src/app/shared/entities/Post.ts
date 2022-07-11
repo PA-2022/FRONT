@@ -7,4 +7,5 @@ export interface Post {
   lastUpdateDate: string|undefined|null;
   userId: number|undefined|null;
   forumId: number;
+  note: number|undefined|null;
 }

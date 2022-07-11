@@ -6,6 +6,8 @@ import {UserService} from "../shared/services/userService";
 import {ForumService} from "../shared/services/forumService";
 import {PostService} from "../shared/services/postService";
 import {AuthService} from "../shared/services/authService";
+import {PostVote} from "../shared/entities/PostVote";
+import {CommentVote} from "../shared/entities/CommentVote";
 
 @Component({
   selector: 'app-post',
@@ -23,6 +25,7 @@ export class PostComponent implements OnInit {
   public loggedUser = this.authService.loggedUser;
   editMessage: any | null | undefined;
   commentCount: any;
+  userPostVote: any;
 
 
   constructor(private route: ActivatedRoute, private userService: UserService, private forumService: ForumService, private postService: PostService, private authService: AuthService) {
@@ -34,6 +37,11 @@ export class PostComponent implements OnInit {
       this.forum = value
     });
     this.getComments();
+    if(this.post.id && this.loggedUser) {
+      this.postService.getUserUpvote(this.post.id).subscribe(data => {
+        this.userPostVote = data;
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -105,5 +113,47 @@ export class PostComponent implements OnInit {
     this.postService.getCommentCount(Number(this.post.id)).subscribe(data => {
       this.commentCount = data;
     })
+  }
+
+  upvote(isUpvote: boolean) {
+    const upvote: PostVote = {
+      id: this.userPostVote ? this.userPostVote.id : null,
+      upvote: isUpvote,
+      postId: this.post.id,
+      userId: null
+    }
+    this.postService.upvote(upvote).subscribe(data => {
+      if(this.post.id) {
+        this.postService.getPostById(this.post.id).subscribe(post => {
+          this.post = post;
+        });
+        this.postService.getUserUpvote(this.post.id).subscribe(data => {
+          this.userPostVote = data;
+        });
+      }
+
+    });
+  }
+  upvoteComment(isUpvote: boolean, comment: any, parentId: number|null) {
+    const upvote: CommentVote = {
+      id:  comment.optionalCommentVote ? comment.optionalCommentVote.id : null,
+      upvote: isUpvote,
+      commentId: comment.comment.id,
+      userId: null
+    }
+
+    this.postService.upvoteComment(upvote).subscribe(data => {
+      this.postService.getCommentById(comment.comment.id).subscribe(commentValue => {
+        if(!!parentId) {
+          let parentIndex = this.comments.findIndex((x: any) => x.comment.comment.id === parentId);
+          let currentCommentIndex = this.comments[parentIndex].responses.findIndex((y:any) => y.comment.id === comment.comment.id);
+          this.comments[parentIndex].responses[currentCommentIndex].comment = commentValue.comment.comment;
+          this.comments[parentIndex].responses[currentCommentIndex].optionalCommentVote = commentValue.comment.optionalCommentVote;
+        } else {
+          let index = this.comments.findIndex((x: any) => x.comment.comment.id === comment.comment.id);
+          this.comments[index] = commentValue;
+        }
+      });
+    });
   }
 }

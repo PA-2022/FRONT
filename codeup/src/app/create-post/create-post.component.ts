@@ -35,9 +35,7 @@ export class CreatePostComponent implements AfterViewInit {
   postId: number | undefined | null = null;
 
   constructor(private hiddenParamsService: HiddenParamsService, private postService: PostService,
-              private snackBar: MatSnackBar, private router: Router, private forumService: ForumService,
-              private ap:ApplicationRef, private resolver: ComponentFactoryResolver) {
-    console.log(this.forumId)
+              private snackBar: MatSnackBar, private router: Router, private forumService: ForumService) {
     forumService.getForumById(this.forumId).subscribe(value => {
         this.forum = value;
     })
@@ -60,7 +58,8 @@ export class CreatePostComponent implements AfterViewInit {
       creationDate: null,
       lastUpdateDate: null,
       userId: null,
-      forumId: this.forumId
+      forumId: this.forumId,
+      note: null
     }
     this.loading = true;
     this.postService.addPost(post).subscribe(value => {
