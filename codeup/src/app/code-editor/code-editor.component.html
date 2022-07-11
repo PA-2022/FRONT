@@ -1,0 +1,15 @@
+<div class="code-editor-box">
+  <div class="input-box">
+  <textarea class="text-code-editor" (ngModelChange)="onCodeChange($event)" [ngModel]="code" rows="0" column="0" wrap="off" (keydown.Tab)="tabIndentation()" tabindex="-1" #codeEditor></textarea>
+  </div>
+
+  <div class="output-box">
+    <button class="run-button" (click)="runCode('python', codeEditor.value)">
+      <img class="run-image-button" src="../../assets/icons/play.png" alt="">
+    </button>
+    <div class="output-text" [innerHTML]="output">
+    </div>
+  </div>
+</div>
+
+
