@@ -1,4 +1,4 @@
-import { AfterViewInit, ApplicationRef, Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, ElementRef, Inject, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ApplicationRef, Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, ElementRef, HostListener, Inject, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HiddenParamsService} from "../shared/services/hiddenParamsService";
 import {Post} from "../shared/entities/Post";
@@ -17,12 +17,17 @@ import { CodeEditorComponent } from '../code-editor/code-editor.component';
 export class CreatePostComponent implements AfterViewInit {
   defaultCode = "// Write your code here";
   codeVisibility = false;
+  addContentVisibility = false;
+
   @ViewChild('newCodeEditor')
   newCodeEditor!: TemplateRef<any>;
   @ViewChild('codeEditorBox', { read: ViewContainerRef })
   codeEditorBox!: ViewContainerRef;
   @ViewChild(CodeEditorComponent)
   codeEditorComponent: CodeEditorComponent | undefined;
+  @ViewChild('addContentDiv')
+  addContentDiv!: ElementRef;
+
   container!: ViewContainerRef;
   maxLengthTitle = 64;
   htmlContent: any;
@@ -40,11 +45,19 @@ export class CreatePostComponent implements AfterViewInit {
         this.forum = value;
     })
   }
+
   ngAfterViewInit(): void {
 
   }
 
   ngOnInit(): void {
+  }
+
+  @HostListener('document:mousedown', ['$event'])
+  onGlobalClick(event: any): void {
+     if (!this.addContentDiv.nativeElement.contains(event.target)) {
+        this.addContentDiv.nativeElement.style.visibility = "hidden";
+     }
   }
 
   createPost() {
@@ -78,14 +91,34 @@ export class CreatePostComponent implements AfterViewInit {
     });
   }
 
+
+  codeChange(code: String) {
+    this.code = code;
+  }
+
   addCodeEditor() {
-    // this.codeEditorBox.createEmbeddedView(this.newCodeEditor);
     this.codeVisibility = true;
   }
 
   rmCodeEditor() {
     this.codeVisibility = false;
   }
+
+  addContent(event: any) {
+    this.addContentDiv.nativeElement.style.visibility = "visible";
+    this.addContentDiv.nativeElement.style.top = event.pageY - 50 + "px";
+    this.addContentDiv.nativeElement.style.left = event.pageX - 55 + "px";
+  }
+
+  addText(){
+    console.log("ok text");
+  }
+
+  addCode(){
+    this.codeEditorBox.createEmbeddedView(this.newCodeEditor);
+    console.log("ok code");
+  }
+
 
   isDisabled() {
     return !this.title || !this.content || this.loading;

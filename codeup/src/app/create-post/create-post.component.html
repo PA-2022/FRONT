@@ -24,11 +24,16 @@
           </div>
         </div>
       </mat-form-field>
-      <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="content"></angular-editor>
-      <div class="code-editor-box" #codeEditorBox>
-        <app-code-editor [(code)]="code"  *ngIf="codeVisibility">
-        </app-code-editor>
+      <!-- <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="content"></angular-editor> -->
+      <div class="editor-box">
+        <textarea autosize class="editor-area">  </textarea>
+        <div class="code-editor-box" #codeEditorBox>
+          <app-code-editor [code]="code"  (codeChange)="codeChange($event)" *ngIf="codeVisibility">
+          </app-code-editor>
+        </div>
+        <div class="add-content" (click)="addContent($event)"></div>
       </div>
+
 
       <br>
       <div class="float-right">
@@ -53,6 +58,12 @@
       <p style="display: flex; align-content: baseline; align-items: flex-end "> <mat-icon>cake</mat-icon> <label> &nbsp; created {{forum.creationDate | date: "MMM dd, YYYY"}}</label></p>
     </div>
   </div>
+</div>
+
+<div class="code-text-selector d-flex" #addContentDiv>
+  <button class="add-text-button" mat-button (click)="addText()">Text</button>
+  <button class="add-code-button" mat-button (click)="addCode()">Code</button>
+  <div class="arrow-down"></div>
 </div>
 
 <ng-template #newCodeEditor>

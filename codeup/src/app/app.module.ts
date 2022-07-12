@@ -37,6 +37,7 @@ import {HttpRequestInterceptor} from "./shared/implementation/HttpRequestInterce
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {UserResolver} from "./resolvers/userResolver";
 import { CodeEditorComponent } from './code-editor/code-editor.component';
+import { AutosizeModule } from 'ngx-autosize';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { CodeEditorComponent } from './code-editor/code-editor.component';
         HttpClientModule,
         AngularEditorModule,
         MatSnackBarModule,
+        AutosizeModule
     ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},

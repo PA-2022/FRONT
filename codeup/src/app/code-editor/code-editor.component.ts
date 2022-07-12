@@ -14,8 +14,8 @@ export class CodeEditorComponent implements OnInit, OnChanges {
   @Output() codeChange = new EventEmitter<String>();
 
   constructor(private codeEditorService: CodeEditorService) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.code);
+
+  ngOnChanges(): void {
     this.codeChange.emit(this.code);
   }
 
