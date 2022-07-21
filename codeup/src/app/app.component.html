@@ -13,10 +13,12 @@
                  placeholder="Search in codeup..."
                  matInput
                  [formControl]="myControl"
-                 [matAutocomplete]="auto">
+                 [matAutocomplete]="auto"
+                 [(ngModel)]="searchString"
+                 (keyup)="lightSearch()">
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of options" [value]="option">
-              {{option}}
+            <mat-option *ngFor="let option of options" [value]="option.post.title" (click)="goToPost(option.post.id)">
+              {{option.post.title }} - by {{option.user}} ({{option.forum}})
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>

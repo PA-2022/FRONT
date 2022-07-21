@@ -5,6 +5,8 @@ import {SigninComponent} from "./signin/signin.component";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "./shared/services/authService";
 import {User} from "./shared/entities/User";
+import {SearchService} from "./shared/services/searchService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -14,10 +16,11 @@ import {User} from "./shared/entities/User";
 export class AppComponent {
   title = 'Codeup';
   myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
+  options: any[] = [];
+  searchString = "";
   public isLogged:boolean = false;
   public loggedUser: User|undefined;
-  constructor(public dialog: MatDialog, private authService: AuthService) {
+  constructor(public dialog: MatDialog, private router: Router, private authService: AuthService, private searchService: SearchService) {
   }
 
 
@@ -45,5 +48,17 @@ export class AppComponent {
 
   logout() {
     this.authService.logout()
+  }
+
+  lightSearch() {
+    if(!!this.searchService && this.searchString !== "") {
+      this.searchService.lightSearch(this.searchString).subscribe(result => {
+        this.options = result;
+      });
+    }
+  }
+
+  goToPost(id: number) {
+    this.router.navigate(["/post/" + id])
   }
 }
