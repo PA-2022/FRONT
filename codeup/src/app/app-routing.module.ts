@@ -29,7 +29,7 @@ const routes: Routes = [
       postResolver: PostResolver
     }
   },
-  { path : 'search', component: SearchComponent },
+  { path : 'search/:search', component: SearchComponent },
   {
     path : 'account/:id',
     component: AccountComponent,

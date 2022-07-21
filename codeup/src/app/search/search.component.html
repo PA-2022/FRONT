@@ -1,1 +1,45 @@
-<p>search works!</p>
+<div class="container" style="max-width: 100%; min-height: 100vh; background-color: #dae0e6; padding-bottom: 20px">
+
+  <!-- followed posts -->
+  <div class="row col-md-10"style="margin: auto; padding-top: 4vh" *ngIf="searchResults.subscribedSubredditsPosts.length > 0">
+    <h2>Followed forum posts</h2>
+    <div (click)="goToPost(result.post.id)" class="row" *ngFor="let result of searchResults.subscribedSubredditsPosts;" style="background-color: white; border-radius: 5px; width: 100%; margin-top: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer">
+      <div class="col col-md-12">
+        <p style="color: #787c7e"><a style="color: black" href="/account/{{result.post.userId}}">{{result.user }}</a> • published by {{result.user}} the {{result.post.creationDate | date :"MMM dd, YYYY"}}</p>
+        <h2>{{result.post.title}}</h2>
+      </div>
+      <div class="col col-md-8">
+        <p>{{result.username}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- random posts -->
+  <div class="row col-md-10"style="margin: auto; padding-top: 4vh" *ngIf="searchResults.randomPosts.length > 0">
+    <h2>Posts</h2>
+    <div (click)="goToPost(result.post.id)" class="row" *ngFor="let result of searchResults.randomPosts;" style="background-color: white; border-radius: 5px; width: 100%; margin-top: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer">
+      <div class="col col-md-12">
+        <p style="color: #787c7e"><a style="color: black" href="/account/{{result.post.userId}}">{{result.user }}</a> • published by {{result.user}} the {{result.post.creationDate | date :"MMM dd, YYYY"}}</p>
+        <h2>{{result.post.title}}</h2>
+      </div>
+      <div class="col col-md-8">
+        <p>{{result.username}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- users -->
+  <div class="row col-md-10"style="margin: auto; padding-top: 4vh" *ngIf="searchResults.users.length > 0">
+    <h2>Users</h2>
+    <div (click)="goToUser(result.id)" class="row" *ngFor="let result of searchResults.users;" style="background-color: white; border-radius: 5px; width: 100%; margin-top: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer">
+      <div class="col col-md-1">
+        <img style="width: 40px; border-radius: 50%" src="https://styles.redditmedia.com/t5_247ixi/styles/profileIcon_23qcsazntnk31.png?width=256&height=256&frame=1&crop=256:256,smart&s=c1da43f628e03cfbaeb11ab6ad1ded0f2dac6140">
+      </div>
+      <div class="col col-md-8">
+        <p>{{result.username}}</p>
+      </div>
+    </div>
+  </div>
+
+
+</div>

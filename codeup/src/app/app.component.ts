@@ -59,6 +59,10 @@ export class AppComponent {
   }
 
   goToPost(id: number) {
-    this.router.navigate(["/post/" + id])
+    window.location.href = ("/post/" + id);
+  }
+
+  fullSearch() {
+    window.location.href = ("/search/" +this.searchString);
   }
 }

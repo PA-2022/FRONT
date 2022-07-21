@@ -14,4 +14,10 @@ export class SearchService {
       'http://localhost:8080/search/light-search/' + search
     );
   }
+
+  fullSearch(searchString: string) : Observable<any> {
+    return this.httpclient.get<any>(
+      'http://localhost:8080/search/' + searchString
+    );
+  }
 }
