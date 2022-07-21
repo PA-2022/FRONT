@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CodeEditorService } from './code-editor.service';
+import { CodeEditorService } from '../shared/services/code-editor.service';
 
 describe('CodeEditorService', () => {
   let service: CodeEditorService;

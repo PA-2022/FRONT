@@ -20,6 +20,14 @@
           <br>
           <h2 *ngIf="post">{{post.title}}</h2>
           <p class="tag" *ngIf="forum">{{forum.title}}</p>
+          <div *ngFor="let content of contents">
+            <div *ngIf="content.type === 0">
+              <p>{{content.content}}</p>
+            </div>
+            <div *ngIf="content.type === 1">
+              <app-code-viewer [code]="content.content" ></app-code-viewer>
+            </div>
+          </div>
           <div *ngIf="post" [innerHTML]="post.content"></div>
 
           <div style="margin-top: 4vh; display: flex">

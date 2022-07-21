@@ -1,6 +1,6 @@
 <div class="code-editor-box">
   <div class="input-box">
-  <textarea class="text-code-editor" (ngModelChange)="onCodeChange($event)" [ngModel]="code" rows="0" column="0" wrap="off" (keydown.Tab)="tabIndentation()" tabindex="-1" #codeEditor></textarea>
+  <textarea autosize class="text-code-editor" (ngModelChange)="onCodeChange($event)" [ngModel]="data.code" rows="0" column="0" wrap="off" (keydown.Tab)="tabIndentation()" tabindex="-1" #codeEditor></textarea>
   </div>
 
   <div class="output-box">
@@ -11,5 +11,6 @@
     </div>
   </div>
 </div>
+
 
 

@@ -38,6 +38,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {UserResolver} from "./resolvers/userResolver";
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { AutosizeModule } from 'ngx-autosize';
+import { TextEditorComponent } from './text-editor/text-editor.component';
+import { CodeViewerComponent } from './code-viewer/code-viewer.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { AutosizeModule } from 'ngx-autosize';
     SigninComponent,
     NotFoundComponent,
     CreatePostComponent,
-    CodeEditorComponent
+    CodeEditorComponent,
+    TextEditorComponent,
+    CodeViewerComponent
   ],
     imports: [
         BrowserModule,

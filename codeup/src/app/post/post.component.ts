@@ -8,6 +8,7 @@ import {PostService} from "../shared/services/postService";
 import {AuthService} from "../shared/services/authService";
 import {PostVote} from "../shared/entities/PostVote";
 import {CommentVote} from "../shared/entities/CommentVote";
+import { Content } from '../shared/entities/Content';
 
 @Component({
   selector: 'app-post',
@@ -16,6 +17,7 @@ import {CommentVote} from "../shared/entities/CommentVote";
 })
 export class PostComponent implements OnInit {
   post: Post;
+  contents: Content[] | undefined;
   user: any;
   forum: any;
   comments: any;
@@ -30,12 +32,22 @@ export class PostComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private userService: UserService, private forumService: ForumService, private postService: PostService, private authService: AuthService) {
     this.post = route.snapshot.data['postResolver'];
+
     this.userService.getUserById(Number(this.post.userId)).subscribe(value => {
       this.user = value
     });
+
     this.forumService.getForumById(Number(this.post.forumId)).subscribe(value => {
       this.forum = value
     });
+
+    console.log(this.post);
+    this.postService.getPostContentByPostId(Number(this.post.id)).subscribe(value => {
+      this.contents = value
+      console.log(this.contents)
+    });
+
+
     this.getComments();
     if(this.post.id && this.loggedUser) {
       this.postService.getUserUpvote(this.post.id).subscribe(data => {

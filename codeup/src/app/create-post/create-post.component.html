@@ -12,8 +12,7 @@
                name="title"
                required
                minlength="3"
-               maxlength={{maxLengthTitle}}
-        >
+               maxlength={{maxLengthTitle}}>
         <div class="alert-danger" *ngIf="title && (title.length < 3 || title.length > maxLengthTitle)">
           <div *ngIf="title.length === 0">Title is required</div>
           <div *ngIf="title.length < 3">
@@ -24,12 +23,9 @@
           </div>
         </div>
       </mat-form-field>
-      <!-- <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="content"></angular-editor> -->
+
       <div class="editor-box">
-        <textarea autosize class="editor-area">  </textarea>
         <div class="code-editor-box" #codeEditorBox>
-          <app-code-editor [code]="code"  (codeChange)="codeChange($event)" *ngIf="codeVisibility">
-          </app-code-editor>
         </div>
         <div class="add-content" (click)="addContent($event)"></div>
       </div>
@@ -37,8 +33,6 @@
 
       <br>
       <div class="float-right">
-        <button *ngIf="!codeVisibility" class="add-code-button" mat-raised-button color="primary" (click)="addCodeEditor()">Add code</button>
-        <button *ngIf="codeVisibility" class="add-code-button" mat-raised-button color="primary" (click)="rmCodeEditor()">Remove code</button>
         <button style="background-color: #FFC500; float: right" mat-raised-button color="accent" (click)="createPost()" [disabled]="isDisabled() || loading || !!title.errors">Create post</button>
       </div>
 
@@ -65,10 +59,4 @@
   <button class="add-code-button" mat-button (click)="addCode()">Code</button>
   <div class="arrow-down"></div>
 </div>
-
-<ng-template #newCodeEditor>
-  <app-code-editor>
-
-  </app-code-editor>
-</ng-template>
 

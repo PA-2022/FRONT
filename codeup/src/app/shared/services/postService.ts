@@ -5,6 +5,8 @@ import {Post} from "../entities/Post";
 import {Comment} from "../entities/Comment";
 import {PostVote} from "../entities/PostVote";
 import {CommentVote} from "../entities/CommentVote";
+import { PostContent } from '../entities/PostContent';
+import { Content } from '../entities/Content';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,14 +15,19 @@ export class PostService {
   constructor(private httpclient: HttpClient) {
   }
 
-  public addPost(post: Post): Observable<Post> {
+  public addPost(postContent: PostContent): Observable<Post> {
     return this.httpclient.post<Post>(
-      'http://localhost:8080/posts/add' , post
+      'http://localhost:8080/posts/add' , postContent
     );
   }
 
+
   public getPostById(id: number): Observable<Post> {
     return this.httpclient.get<Post>('http://localhost:8080/posts/' + id);
+  }
+
+  public getPostContentByPostId(id: number): Observable<Content[]> {
+    return this.httpclient.get<Content[]>('http://localhost:8080/posts/' + id + '/content');
   }
 
   public getPostComments(id: number): Observable<any> {

@@ -1,17 +1,15 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ContentEditorComponent } from '../shared/entities/ContentEditorComponent';
+import { Component, Input, OnInit } from '@angular/core';
+import { CodeSourceDao } from '../code-editor/codeSourceDao';
 import { CodeEditorService } from '../shared/services/code-editor.service';
-import { CodeSourceDao } from './codeSourceDao';
-import { OutputDao } from './outputDao';
 
 @Component({
-  selector: 'app-code-editor',
-  templateUrl: './code-editor.component.html',
-  styleUrls: ['./code-editor.component.sass']
+  selector: 'app-code-viewer',
+  templateUrl: './code-viewer.component.html',
+  styleUrls: ['./code-viewer.component.sass']
 })
-export class CodeEditorComponent implements OnInit, OnChanges, ContentEditorComponent {
+export class CodeViewerComponent implements OnInit {
   @Input() output: String | undefined;
-  @Input() data: any;
+  @Input() code: any;
 
   constructor(private codeEditorService: CodeEditorService) { }
 
@@ -35,13 +33,8 @@ export class CodeEditorComponent implements OnInit, OnChanges, ContentEditorComp
 
   }
 
-  onCodeChange(event: any){
-    this.data.code = event;
-  }
-
 
   tabIndentation(): void {
     console.log("tabIndent");
   }
-
 }
