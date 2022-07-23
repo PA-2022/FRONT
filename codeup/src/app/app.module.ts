@@ -41,6 +41,8 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
 import { CodeViewerComponent } from './code-viewer/code-viewer.component';
 import { ResetpwdComponent } from './resetpwd/resetpwd.component';
 import { LostPwdComponent } from './lost-pwd/lost-pwd.component';
+import { CgvComponent } from './cgv/cgv.component';
+import { ConditionsComponent } from './conditions/conditions.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { LostPwdComponent } from './lost-pwd/lost-pwd.component';
     TextEditorComponent,
     CodeViewerComponent,
     ResetpwdComponent,
-    LostPwdComponent
+    LostPwdComponent,
+    CgvComponent,
+    ConditionsComponent
   ],
     imports: [
         BrowserModule,
