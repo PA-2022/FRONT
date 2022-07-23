@@ -32,7 +32,6 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CreatePostComponent } from './create-post/create-post.component';
-import {AngularEditorModule} from "@kolkov/angular-editor";
 import {HttpRequestInterceptor} from "./shared/implementation/HttpRequestInterceptor";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {UserResolver} from "./resolvers/userResolver";
@@ -85,7 +84,6 @@ import { LostPwdComponent } from './lost-pwd/lost-pwd.component';
         FormsModule,
         MatDialogModule,
         HttpClientModule,
-        AngularEditorModule,
         MatSnackBarModule,
         AutosizeModule
     ],
