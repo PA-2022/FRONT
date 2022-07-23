@@ -65,8 +65,16 @@
               <h3 class="text-success">Comments</h3>
               <hr/>
               <div>
+
                 <textarea #target class="commentBox" [(ngModel)]="commentValue"
                           placeholder="{{respondUsername ? ('@' + respondUsername) : 'Your comment'}}"></textarea>
+
+                          <div class="editor-box">
+                            <div class="code-editor-box" #codeEditorBox>
+                            </div>
+                            <div class="add-content" (click)="addContent($event)"></div>
+                          </div>
+
                 <div style="display: flex; justify-content: flex-end; margin-bottom: 10px">
                   <button style="background-color: red; display: inline-block; margin-right: 5px" mat-raised-button
                           color="accent" (click)="respondId = null; commentValue = ''; respondUsername = undefined">
@@ -101,6 +109,16 @@
                     <p>
                       {{item.comment.comment.content}}
                     </p>
+
+                    <div *ngFor="let content of item.comment.contents">
+                      <div *ngIf="content.type === 0">
+                        <p>{{content.content}}</p>
+                      </div>
+                      <div *ngIf="content.type === 1">
+                        <app-code-viewer [code]="content.content" ></app-code-viewer>
+                      </div>
+                    </div>
+
                   </div>
                   <ul class="comments" *ngFor="let response of item.responses">
                     <li class="clearfix">
@@ -126,6 +144,14 @@
                         <p>
                           {{response.comment.content}}
                         </p>
+                        <div *ngFor="let content of response.contents">
+                          <div *ngIf="content.type === 0">
+                            <p>{{content.content}}</p>
+                          </div>
+                          <div *ngIf="content.type === 1">
+                            <app-code-viewer [code]="content.content" ></app-code-viewer>
+                          </div>
+                        </div>
                       </div>
                     </li>
                   </ul>
@@ -139,4 +165,10 @@
     <div class="col col-md-3 sort-container white-block about">
     </div>
   </div>
+</div>
+
+<div class="code-text-selector d-flex" #addContentDiv>
+  <button class="add-text-button" mat-button (click)="addText()">Text</button>
+  <button class="add-code-button" mat-button (click)="addCode()">Code</button>
+  <div class="arrow-down"></div>
 </div>

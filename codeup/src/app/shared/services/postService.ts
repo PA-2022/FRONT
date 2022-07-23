@@ -7,6 +7,7 @@ import {PostVote} from "../entities/PostVote";
 import {CommentVote} from "../entities/CommentVote";
 import { PostContent } from '../entities/PostContent';
 import { Content } from '../entities/Content';
+import { CommentContent } from '../entities/CommentContent';
 @Injectable({
   providedIn: 'root'
 })
@@ -34,9 +35,9 @@ export class PostService {
     return this.httpclient.get<any>('http://localhost:8080/comments/comment/post/' + id)
   }
 
-  sendComment(comment: Comment) {
+  sendComment(commentContent: CommentContent) {
     return this.httpclient.post<Comment>(
-      'http://localhost:8080/comments' , comment
+      'http://localhost:8080/comments' , commentContent
     );
   }
 
