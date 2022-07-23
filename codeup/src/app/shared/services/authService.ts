@@ -63,4 +63,15 @@ export class AuthService {
       });
   }
 
+  testEmail(email: string): Observable<boolean> {
+      return this.httpclient.get<boolean>(
+      'http://localhost:8080/users/email-exists/'+ email
+    );
+  }
+  testUsername(username: string): Observable<boolean> {
+      return this.httpclient.get<boolean>(
+      'http://localhost:8080/users/username-exists/'+ username
+    );
+  }
+
 }

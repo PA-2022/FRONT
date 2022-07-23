@@ -28,6 +28,7 @@
                maxlength="20"
                #username="ngModel"
         >
+        <div class="alert-danger" *ngIf="usernameExists">Username is already registered</div>
         <div class="alert-danger" *ngIf="username && username.errors && form.username.length > 0">
           <div *ngIf="username.errors['required']">Username is required</div>
           <div *ngIf="username.errors['minlength']">
@@ -51,12 +52,12 @@
                #firstname="ngModel"
         >
         <div class="alert-danger" *ngIf="firstname && firstname.errors && form.firstname.length > 0">
-          <div *ngIf="firstname.errors['required']">Username is required</div>
+          <div *ngIf="firstname.errors['required']">Firstname is required</div>
           <div *ngIf="firstname.errors['minlength']">
-            Username must be at least 3 characters
+            Firstname must be at least 3 characters
           </div>
           <div *ngIf="firstname.errors['maxlength']">
-            Username must be at most 20 characters
+            Firstname must be at most 20 characters
           </div>
         </div>
       </mat-form-field>
@@ -73,12 +74,12 @@
                #lastname="ngModel"
         >
         <div class="alert-danger" *ngIf="lastname && lastname.errors && form.lastname.length > 0">
-          <div *ngIf="lastname.errors['required']">Username is required</div>
+          <div *ngIf="lastname.errors['required']">Lastname is required</div>
           <div *ngIf="lastname.errors['minlength']">
-            Username must be at least 3 characters
+            Lastname must be at least 3 characters
           </div>
           <div *ngIf="lastname.errors['maxlength']">
-            Username must be at most 20 characters
+            Lastname must be at most 20 characters
           </div>
         </div>
       </mat-form-field>
@@ -93,6 +94,8 @@
                email
                #email="ngModel"
         >
+        <div class="alert-danger" *ngIf="emailExists">Email is already registered</div>
+
         <div class="alert-danger" *ngIf="email && email.errors && form.email.length > 0">
           <div *ngIf="email.errors['required']">Email is required</div>
           <div *ngIf="email.errors['email']">
