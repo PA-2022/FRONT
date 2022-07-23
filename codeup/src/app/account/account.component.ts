@@ -96,6 +96,7 @@ export class AccountComponent implements OnInit {
       this.userService.uploadPp(this.file).subscribe(data => {
         if(data !== null && data !== "false") {
           this.user.profilePictureUrl = data;
+          this.file = null;
         }
         console.log(data);
       });
