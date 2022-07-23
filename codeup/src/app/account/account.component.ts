@@ -16,6 +16,7 @@ export class AccountComponent implements OnInit {
   public user: any;
   public isSameUser = false;
   userForm: FormGroup;
+  private file: any;
 
   constructor(private userService: UserService, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar
   ) {
@@ -86,5 +87,18 @@ export class AccountComponent implements OnInit {
           panelClass: ['error-snackbar']
         });
     });
+  }
+
+  onFileChanged(event: any) {
+    if(event){
+      this.file = event.target.files[0];
+      console.log(this.file.name)
+      this.userService.uploadPp(this.file).subscribe(data => {
+        if(data !== null && data !== "false") {
+          this.user.profilePictureUrl = data;
+        }
+        console.log(data);
+      });
+    }
   }
 }
