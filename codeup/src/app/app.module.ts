@@ -40,6 +40,8 @@ import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { AutosizeModule } from 'ngx-autosize';
 import { TextEditorComponent } from './text-editor/text-editor.component';
 import { CodeViewerComponent } from './code-viewer/code-viewer.component';
+import { ResetpwdComponent } from './resetpwd/resetpwd.component';
+import { LostPwdComponent } from './lost-pwd/lost-pwd.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { CodeViewerComponent } from './code-viewer/code-viewer.component';
     CreatePostComponent,
     CodeEditorComponent,
     TextEditorComponent,
-    CodeViewerComponent
+    CodeViewerComponent,
+    ResetpwdComponent,
+    LostPwdComponent
   ],
     imports: [
         BrowserModule,

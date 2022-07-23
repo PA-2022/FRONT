@@ -10,6 +10,8 @@ import {CreatePostComponent} from "./create-post/create-post.component";
 import {UserResolver} from "./resolvers/userResolver";
 import {ForumResolver} from "./resolvers/forumResolver";
 import {PostResolver} from "./resolvers/postResolver";
+import {ResetpwdComponent} from "./resetpwd/resetpwd.component";
+import {LostPwdComponent} from "./lost-pwd/lost-pwd.component";
 
 
 const routes: Routes = [
@@ -30,6 +32,8 @@ const routes: Routes = [
     }
   },
   { path : 'search/:search', component: SearchComponent },
+  { path: 'change-password/:token', component: ResetpwdComponent },
+  { path: 'lost-password', component: LostPwdComponent},
   {
     path : 'account/:id',
     component: AccountComponent,

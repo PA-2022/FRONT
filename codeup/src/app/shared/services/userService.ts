@@ -22,4 +22,21 @@ export class UserService {
     )
   }
 
+  changePasswordEmail() : Observable<boolean>{
+    return this.httpclient.post<boolean>('http://localhost:8080/users/send-password-edit', {})
+  }
+
+  changePassword(password: String, token: String) : Observable<boolean>{
+    return this.httpclient.post<boolean>('http://localhost:8080/users/change-password/' + password + "/token/" + token, {})
+  }
+
+  checkToken(token: any): Observable<boolean> {
+    return this.httpclient.get<boolean>('http://localhost:8080/users/token/' + token);
+
+  }
+
+  lostPassword(email: String) {
+    return this.httpclient.post<boolean>('http://localhost:8080/users/lost-password/' + email, {});
+
+  }
 }

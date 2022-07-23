@@ -32,6 +32,11 @@
                   style="background-color: #FFC500; float: right"
                   [disabled]="!userForm.valid || !enableButton()">Update my account</button>
         </form>
+        <br>
+        <br>
+        <br>
+        <button *ngIf="isSameUser" (click)="changePassword()" mat-raised-button color="accent"
+                style="background-color: #FF9600; float: right" >Change my password</button>
         <div *ngIf="!isSameUser">
           <div class="row mt-2">
             <div class="col-md-12"><label class="labels">Username</label>
