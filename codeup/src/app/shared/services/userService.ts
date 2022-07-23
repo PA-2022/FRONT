@@ -36,7 +36,7 @@ export class UserService {
   }
 
   lostPassword(email: String) {
-    return this.httpclient.post<boolean>('http://localhost:8080/users/lost-password/' + email, {});
+    return this.httpclient.post<boolean>('http://localhost:8080/users/lost-password-2/' + email, {});
   }
 
   uploadPp(image: any): Observable<String> {

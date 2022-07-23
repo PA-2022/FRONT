@@ -33,7 +33,7 @@ const routes: Routes = [
   },
   { path : 'search/:search', component: SearchComponent },
   { path: 'change-password/:token', component: ResetpwdComponent },
-  { path: 'lost-password', component: LostPwdComponent},
+  { path: 'user-lost-password', component: LostPwdComponent},
   {
     path : 'account/:id',
     component: AccountComponent,
