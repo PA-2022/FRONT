@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import {Comment} from "../shared/entities/Comment";
 import {ActivatedRoute} from "@angular/router";
 import {Post} from "../shared/entities/Post";
@@ -9,6 +9,11 @@ import {AuthService} from "../shared/services/authService";
 import {PostVote} from "../shared/entities/PostVote";
 import {CommentVote} from "../shared/entities/CommentVote";
 import { Content } from '../shared/entities/Content';
+import { NewContentItem } from '../shared/entities/NewContentItem';
+import { ContentEditorComponent } from '../shared/entities/ContentEditorComponent';
+import { TextEditorComponent } from '../text-editor/text-editor.component';
+import { CodeEditorComponent } from '../code-editor/code-editor.component';
+import { CommentContent } from '../shared/entities/CommentContent';
 
 @Component({
   selector: 'app-post',
@@ -16,6 +21,16 @@ import { Content } from '../shared/entities/Content';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
+  @ViewChild('addContentDiv')
+  addContentDiv!: ElementRef;
+
+  @ViewChild('codeEditorBox', { read: ViewContainerRef })
+  codeEditorBox!: ViewContainerRef;
+
+  allContent: NewContentItem[] = [];
+  allContentPost: Content[] = []
+  defaultCode = "# Write your code here";
+
   post: Post;
   contents: Content[] | undefined;
   user: any;
@@ -66,6 +81,7 @@ export class PostComponent implements OnInit {
   getComments(): void {
     this.postService.getPostComments(Number(this.post.id)).subscribe(value => {
       this.comments = value;
+      console.log(this.comments);
       this.getPostCommentCount();
     })
   }
@@ -90,7 +106,11 @@ export class PostComponent implements OnInit {
       creationDate: null,
       lastUpdateDate: null
     }
-    this.postService.sendComment(comment).subscribe(value => {
+
+    this.pushCodeAndTextInAllContentPost();
+    let commentPost = new CommentContent(comment, this.allContentPost)
+
+    this.postService.sendComment(commentPost).subscribe(value => {
       this.getComments();
       this.commentValue = "";
       this.respondUsername = undefined;
@@ -167,5 +187,49 @@ export class PostComponent implements OnInit {
         }
       });
     });
+  }
+
+  addContent(event: any) {
+    this.addContentDiv.nativeElement.style.visibility = "visible";
+    this.addContentDiv.nativeElement.style.top = event.pageY - 50 + "px";
+    this.addContentDiv.nativeElement.style.left = event.pageX - 55 + "px";
+  }
+
+  @HostListener('document:mousedown', ['$event'])
+  onGlobalClick(event: any): void {
+     if (!this.addContentDiv.nativeElement.contains(event.target)) {
+        this.addContentDiv.nativeElement.style.visibility = "hidden";
+     }
+  }
+
+  addText(){
+    this.allContent.push(new NewContentItem(TextEditorComponent, {index: this.allContent.length, text: ""}));
+    let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component);
+    newCode.instance.data = this.allContent[this.allContent.length - 1].data;
+
+    this.addContentDiv.nativeElement.style.visibility = "hidden";
+  }
+
+  addCode(){
+    this.allContent.push(new NewContentItem(CodeEditorComponent, {index: this.allContent.length, code: this.defaultCode}));
+    let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component);
+    newCode.instance.data = this.allContent[this.allContent.length - 1].data;
+
+    this.addContentDiv.nativeElement.style.visibility = "hidden";
+  }
+
+  pushCodeAndTextInAllContentPost() {
+
+    let i = 0;
+    this.allContent.forEach(value => {
+      if (value.component === CodeEditorComponent) {
+        this.allContentPost.push(new Content(null, value.data.code, null, 1, i));
+      } else if (value.component === TextEditorComponent) {
+        this.allContentPost.push(new Content(null, value.data.text, null, 0, i));
+      }
+
+      i++;
+    }
+    )
   }
 }

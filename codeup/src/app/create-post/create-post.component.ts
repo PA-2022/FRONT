@@ -122,7 +122,7 @@ export class CreatePostComponent implements AfterViewInit {
     let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component);
     newCode.instance.data = this.allContent[this.allContent.length - 1].data;
 
-    console.log(this.allContent);
+    this.addContentDiv.nativeElement.style.visibility = "hidden";
   }
 
   addCode(){
@@ -130,7 +130,7 @@ export class CreatePostComponent implements AfterViewInit {
     let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component);
     newCode.instance.data = this.allContent[this.allContent.length - 1].data;
 
-    console.log(this.allContent);
+    this.addContentDiv.nativeElement.style.visibility = "hidden";
   }
 
 
