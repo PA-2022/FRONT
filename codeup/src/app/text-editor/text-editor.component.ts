@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ContentEditorComponent } from '../shared/entities/ContentEditorComponent';
 
 @Component({
@@ -8,10 +8,16 @@ import { ContentEditorComponent } from '../shared/entities/ContentEditorComponen
 })
 export class TextEditorComponent implements OnInit, ContentEditorComponent {
   @Input() data: any;
+  @Output() deleteEvent = new EventEmitter<number>();
+
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  destroyComponent (): void {
+    this.deleteEvent.emit(this.data.index);
   }
 
 

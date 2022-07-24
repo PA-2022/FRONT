@@ -11,3 +11,20 @@
 .editor-area:focus{
   outline: none;
 }
+
+.text-box{
+  display: flex;
+}
+
+.delete-button{
+  align-self: flex-start;
+  background: none;
+  border: none;
+}
+
+.delete-image-button
+{
+  width: 15px;
+  height:15px;
+}
+

@@ -13,6 +13,7 @@ import { ContentEditorComponent } from '../shared/entities/ContentEditorComponen
 import { TextEditorComponent } from '../text-editor/text-editor.component';
 import { Content } from '../shared/entities/Content';
 import { PostContent } from '../shared/entities/PostContent';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-create-post',
@@ -25,6 +26,7 @@ export class CreatePostComponent implements AfterViewInit {
   allContentPost: Content[] = []
   codeVisibility = false;
   addContentVisibility = false;
+  contentAddedComponent: ComponentRef<ContentEditorComponent>[] = [];
 
   @ViewChild('newCodeEditor')
   newCodeEditor!: TemplateRef<any>;
@@ -101,7 +103,7 @@ export class CreatePostComponent implements AfterViewInit {
 
 
   codeChange(data: any) {
-    console.log("code change " + data.index + " " + data.code);
+
   }
 
   addContent(event: any) {
@@ -118,17 +120,35 @@ export class CreatePostComponent implements AfterViewInit {
   }
 
   addText(){
-    this.allContent.push(new NewContentItem(TextEditorComponent, {index: this.allContent.length, text: ""}));
-    let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component);
+    this.allContent.push(new NewContentItem(TextEditorComponent, { text: "", index: uuidv4()}));
+    let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component) as ComponentRef<TextEditorComponent>;
     newCode.instance.data = this.allContent[this.allContent.length - 1].data;
+
+    newCode.instance.deleteEvent.pipe().subscribe(value => {
+      let currentContent = this.allContent.find(x => x.data.index === value);
+      if (currentContent) {
+        this.allContent.splice(this.allContent.indexOf(currentContent), 1);
+      }
+      newCode.destroy();
+    });
+
 
     this.addContentDiv.nativeElement.style.visibility = "hidden";
   }
 
   addCode(){
-    this.allContent.push(new NewContentItem(CodeEditorComponent, {index: this.allContent.length, code: this.defaultCode}));
-    let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component);
+    this.allContent.push(new NewContentItem(CodeEditorComponent, { code: this.defaultCode, index: uuidv4() }));
+    let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component) as ComponentRef<CodeEditorComponent>;
     newCode.instance.data = this.allContent[this.allContent.length - 1].data;
+
+    newCode.instance.deleteEvent.pipe().subscribe(value => {
+      let currentContent = this.allContent.find(x => x.data.index === value);
+      if (currentContent) {
+        this.allContent.splice(this.allContent.indexOf(currentContent), 1);
+      }
+      newCode.destroy();
+    });
+
 
     this.addContentDiv.nativeElement.style.visibility = "hidden";
   }
