@@ -4,6 +4,8 @@ import {UserService} from "../shared/services/userService";
 import {ActivatedRoute} from "@angular/router";
 import {AuthService} from "../shared/services/authService";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Friend} from "../shared/entities/Friend";
 
 @Component({
   selector: 'app-account',
@@ -15,8 +17,12 @@ export class AccountComponent implements OnInit {
   public user: any;
   public isSameUser = false;
   userForm: FormGroup;
+  private file: any;
+  isFriendData: Friend|null = null;
+  friendList = <any[]>([]);
 
-  constructor(private userService: UserService, private authService: AuthService, private activatedRoute: ActivatedRoute) {
+  constructor(private userService: UserService, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar
+  ) {
     this.user = this.activatedRoute.snapshot.data['userResolver'];
 
     this.userForm = new FormGroup({
@@ -30,6 +36,7 @@ export class AccountComponent implements OnInit {
     this.userForm.get("firstname")?.setValidators([Validators.required, Validators.pattern(/^\S*$/)]);
     this.userForm.get("lastname")?.setValidators([Validators.required, Validators.pattern(/^\S*$/)]);
     this.userForm.get("email")?.setValidators([Validators.required, Validators.pattern(/^\S*$/)]);
+
     if (this.authService.loggedUser && this.authService.loggedUser.id === this.user.id) {
       this.isSameUser = true;
       this.userForm.setValue({
@@ -39,6 +46,12 @@ export class AccountComponent implements OnInit {
         email: this.user.email
       })
     }
+    if(!this.isSameUser) {
+      this.userService.getIsFriend(this.user.id).subscribe(data => {
+        this.isFriendData = data;
+      })
+    }
+    this.getFriendList();
   }
   ngOnInit() {
   }
@@ -61,11 +74,63 @@ export class AccountComponent implements OnInit {
   }
 
   enableButton() {
-            // same data
+    // same data
     return (this.userForm.get("email")?.value !== this.user.email || this.userForm.get("firstname")?.value !== this.user.firstname
     || this.userForm.get("lastname")?.value !== this.user.lastname || this.userForm.get("username")?.value !== this.user.username)
     //empty data
     && (this.userForm.get("email")?.value !== "" && this.userForm.get("username")?.value !== "" &&
       this.userForm.get("firstname")?.value !== "" && this.userForm.get("lastname")?.value !== "");
+  }
+
+  changePassword() {
+    this.userService.changePasswordEmail().subscribe(
+      () => {
+        this.snackBar.open("An email has been sent !", "Check you mailbox !", {
+          duration: 3000,
+          panelClass: ['success-snackbar']
+        });
+      },
+      (error) => {
+        this.snackBar.open("An error has occured ...", "Try again", {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+    });
+  }
+
+  onFileChanged(event: any) {
+    if(event){
+      this.file = event.target.files[0];
+      this.userService.uploadPp(this.file).subscribe(data => {
+        if(data !== null && data !== "false") {
+          this.user.profilePictureUrl = data;
+          this.file = null;
+        }
+      });
+    }
+  }
+
+  addFriend() {
+    if(!this.isSameUser && !this.isFriendData) {
+      this.userService.addFriend(this.user.id).subscribe(data => {
+        this.isFriendData = data;
+      });
+    }
+  }
+
+  addFriendFromList(id: Number, friendData:any) {
+    if(this.isSameUser && !friendData.accepted) {
+      this.userService.acceptFriend(id).subscribe(data => {
+        friendData = data;
+        this.getFriendList();
+      });
+    }
+  }
+
+  getFriendList() {
+    this.userService.getFriendList(this.user.id).subscribe(data => {
+      this.friendList = data;
+      console.log(this.friendList);
+    })
   }
 }

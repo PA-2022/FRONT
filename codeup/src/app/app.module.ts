@@ -32,7 +32,6 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CreatePostComponent } from './create-post/create-post.component';
-import {AngularEditorModule} from "@kolkov/angular-editor";
 import {HttpRequestInterceptor} from "./shared/implementation/HttpRequestInterceptor";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {UserResolver} from "./resolvers/userResolver";
@@ -40,6 +39,10 @@ import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { AutosizeModule } from 'ngx-autosize';
 import { TextEditorComponent } from './text-editor/text-editor.component';
 import { CodeViewerComponent } from './code-viewer/code-viewer.component';
+import { ResetpwdComponent } from './resetpwd/resetpwd.component';
+import { LostPwdComponent } from './lost-pwd/lost-pwd.component';
+import { CgvComponent } from './cgv/cgv.component';
+import { ConditionsComponent } from './conditions/conditions.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,11 @@ import { CodeViewerComponent } from './code-viewer/code-viewer.component';
     CreatePostComponent,
     CodeEditorComponent,
     TextEditorComponent,
-    CodeViewerComponent
+    CodeViewerComponent,
+    ResetpwdComponent,
+    LostPwdComponent,
+    CgvComponent,
+    ConditionsComponent
   ],
     imports: [
         BrowserModule,
@@ -81,7 +88,6 @@ import { CodeViewerComponent } from './code-viewer/code-viewer.component';
         FormsModule,
         MatDialogModule,
         HttpClientModule,
-        AngularEditorModule,
         MatSnackBarModule,
         AutosizeModule
     ],

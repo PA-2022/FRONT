@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from "../entities/User";
+import {Friend} from "../entities/Friend";
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +23,43 @@ export class UserService {
     )
   }
 
+  changePasswordEmail() : Observable<boolean>{
+    return this.httpclient.post<boolean>('http://localhost:8080/users/send-password-edit', {})
+  }
+
+  changePassword(password: String, token: String) : Observable<boolean>{
+    return this.httpclient.post<boolean>('http://localhost:8080/users/change-password/' + password + "/token/" + token, {})
+  }
+
+  checkToken(token: any): Observable<boolean> {
+    return this.httpclient.get<boolean>('http://localhost:8080/users/token/' + token);
+
+  }
+
+  lostPassword(email: String) {
+    return this.httpclient.post<boolean>('http://localhost:8080/users/lost-password-2/' + email, {});
+  }
+
+  uploadPp(image: any): Observable<String> {
+    var fd = new FormData();
+    fd.append(image.name, image);
+
+    return this.httpclient.post('http://localhost:8080/users/profile-picture', fd,  {responseType: 'text'})
+  }
+
+  addFriend(id: Number): Observable<Friend> {
+    return this.httpclient.post<Friend>('http://localhost:8080/friends/add-friend/' + id, {});
+  }
+
+  getIsFriend(id: Number): Observable<Friend> {
+    return this.httpclient.get<Friend>('http://localhost:8080/friends/is-friend/' + id, {});
+  }
+
+  getFriendList(id: Number): Observable<any> {
+    return this.httpclient.get<any>('http://localhost:8080/friends/list/' + id, {});
+  }
+
+  acceptFriend(id: Number): Observable<any> {
+    return this.httpclient.post<any>('http://localhost:8080/friends/accept-friend/' + id, {});
+  }
 }
