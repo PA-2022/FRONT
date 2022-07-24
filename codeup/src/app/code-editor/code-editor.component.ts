@@ -12,6 +12,7 @@ import { OutputDao } from './outputDao';
 export class CodeEditorComponent implements OnInit, OnChanges, ContentEditorComponent {
   @Input() output: String | undefined;
   @Input() data: any;
+  @Output() deleteEvent = new EventEmitter<number>();
 
   constructor(private codeEditorService: CodeEditorService) { }
 
@@ -33,6 +34,10 @@ export class CodeEditorComponent implements OnInit, OnChanges, ContentEditorComp
       }
     );
 
+  }
+
+  destroyComponent (): void {
+    this.deleteEvent.emit(this.data.index);
   }
 
   onCodeChange(event: any){

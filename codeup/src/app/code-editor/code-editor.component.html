@@ -1,4 +1,6 @@
 <div class="code-editor-box">
+  <button class="delete-button" (click)="destroyComponent()"><img class="delete-image-button" src="../../assets/icons/close.png" alt=""></button>
+
   <div class="input-box">
   <textarea autosize class="text-code-editor" (ngModelChange)="onCodeChange($event)" [ngModel]="data.code" rows="0" column="0" wrap="off" (keydown.Tab)="tabIndentation()" tabindex="-1" #codeEditor></textarea>
   </div>
