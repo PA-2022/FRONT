@@ -141,7 +141,7 @@ export class CreatePostComponent implements AfterViewInit {
     let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component) as ComponentRef<CodeEditorComponent>;
     newCode.instance.data = this.allContent[this.allContent.length - 1].data;
 
-    newCode.instance.deleteEvent.pipe().subscribe(value => {
+    newCode.instance.deleteEvent.pipe().subscribe((value: any) => {
       let currentContent = this.allContent.find(x => x.data.index === value);
       if (currentContent) {
         this.allContent.splice(this.allContent.indexOf(currentContent), 1);
