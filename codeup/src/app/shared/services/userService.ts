@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from "../entities/User";
+import {Friend} from "../entities/Friend";
 
 @Injectable({
   providedIn: 'root'
@@ -46,4 +47,7 @@ export class UserService {
     return this.httpclient.post('http://localhost:8080/users/profile-picture', fd,  {responseType: 'text'})
   }
 
+  addFriend(id: Number): Observable<Friend> {
+    return this.httpclient.post<Friend>('http://localhost:8080/friends/add-friend/' + id, {});
+  }
 }

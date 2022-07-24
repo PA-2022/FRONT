@@ -10,7 +10,9 @@ export class AuthService {
   public authEvent = new BehaviorSubject<boolean>(false);
   public userEvent = new BehaviorSubject<boolean>(false);
   public loggedUser: User| undefined;
-  constructor(private httpclient: HttpClient) {}
+  constructor(private httpclient: HttpClient) {
+    this.emitAuthStatus(true);
+  }
 
   login(value: object): Observable<any> {
     return this.httpclient.post<any>(
@@ -39,8 +41,8 @@ export class AuthService {
     }
   }
 
-  getCurrentUser(): Observable<User> {
-    const user = this.httpclient.get<User>(
+  getCurrentUser(): Observable<User|null> {
+    const user = this.httpclient.get<User|null>(
       'http://localhost:8080/users/current'
     );
     user.subscribe((us) => {

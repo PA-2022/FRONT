@@ -33,6 +33,7 @@ export class AccountComponent implements OnInit {
     this.userForm.get("firstname")?.setValidators([Validators.required, Validators.pattern(/^\S*$/)]);
     this.userForm.get("lastname")?.setValidators([Validators.required, Validators.pattern(/^\S*$/)]);
     this.userForm.get("email")?.setValidators([Validators.required, Validators.pattern(/^\S*$/)]);
+
     if (this.authService.loggedUser && this.authService.loggedUser.id === this.user.id) {
       this.isSameUser = true;
       this.userForm.setValue({
@@ -98,7 +99,6 @@ export class AccountComponent implements OnInit {
           this.user.profilePictureUrl = data;
           this.file = null;
         }
-        console.log(data);
       });
     }
   }
