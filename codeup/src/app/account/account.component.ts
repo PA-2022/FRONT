@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {AuthService} from "../shared/services/authService";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Friend} from "../shared/entities/Friend";
 
 @Component({
   selector: 'app-account',
@@ -17,6 +18,7 @@ export class AccountComponent implements OnInit {
   public isSameUser = false;
   userForm: FormGroup;
   private file: any;
+  isFriendData: Friend|null = null;
 
   constructor(private userService: UserService, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar
   ) {
@@ -41,6 +43,11 @@ export class AccountComponent implements OnInit {
         firstname: this.user.firstname,
         lastname: this.user.lastname,
         email: this.user.email
+      })
+    }
+    if(!this.isSameUser) {
+      this.userService.getIsFriend(this.user.id).subscribe(data => {
+        this.isFriendData = data;
       })
     }
   }
@@ -74,7 +81,6 @@ export class AccountComponent implements OnInit {
   }
 
   changePassword() {
-    console.log(1);
     this.userService.changePasswordEmail().subscribe(
       () => {
         this.snackBar.open("An email has been sent !", "Check you mailbox !", {
@@ -93,12 +99,19 @@ export class AccountComponent implements OnInit {
   onFileChanged(event: any) {
     if(event){
       this.file = event.target.files[0];
-      console.log(this.file.name)
       this.userService.uploadPp(this.file).subscribe(data => {
         if(data !== null && data !== "false") {
           this.user.profilePictureUrl = data;
           this.file = null;
         }
+      });
+    }
+  }
+
+  addFriend() {
+    if(!this.isSameUser && !this.isFriendData) {
+      this.userService.addFriend(this.user.id).subscribe(data => {
+        this.isFriendData = data;
       });
     }
   }

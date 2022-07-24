@@ -50,4 +50,9 @@ export class UserService {
   addFriend(id: Number): Observable<Friend> {
     return this.httpclient.post<Friend>('http://localhost:8080/friends/add-friend/' + id, {});
   }
+
+  getIsFriend(id: Number): Observable<Friend> {
+    return this.httpclient.get<Friend>('http://localhost:8080/friends/is-friend/' + id, {});
+
+  }
 }
