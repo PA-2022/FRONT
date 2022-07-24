@@ -87,4 +87,9 @@ export class PostService {
       'http://localhost:8080/posts/post-list/forum/' + id + '/category/' + category + '/offset/' + offset + '/limit/' + limit
     )
   }
+
+  getPostsForHome(category: string, offset: number, limit: number) {
+    return this.httpclient.get<any>(
+      'http://localhost:8080/posts/post-list/category/' + category + '/offset/' + offset + '/limit/' + limit
+    )  }
 }
