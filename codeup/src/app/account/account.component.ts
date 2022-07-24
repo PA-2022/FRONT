@@ -19,6 +19,7 @@ export class AccountComponent implements OnInit {
   userForm: FormGroup;
   private file: any;
   isFriendData: Friend|null = null;
+  friendList = <any[]>([]);
 
   constructor(private userService: UserService, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar
   ) {
@@ -50,6 +51,7 @@ export class AccountComponent implements OnInit {
         this.isFriendData = data;
       })
     }
+    this.getFriendList();
   }
   ngOnInit() {
   }
@@ -114,5 +116,21 @@ export class AccountComponent implements OnInit {
         this.isFriendData = data;
       });
     }
+  }
+
+  addFriendFromList(id: Number, friendData:any) {
+    if(this.isSameUser && !friendData.accepted) {
+      this.userService.acceptFriend(id).subscribe(data => {
+        friendData = data;
+        this.getFriendList();
+      });
+    }
+  }
+
+  getFriendList() {
+    this.userService.getFriendList(this.user.id).subscribe(data => {
+      this.friendList = data;
+      console.log(this.friendList);
+    })
   }
 }

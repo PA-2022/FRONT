@@ -53,6 +53,13 @@ export class UserService {
 
   getIsFriend(id: Number): Observable<Friend> {
     return this.httpclient.get<Friend>('http://localhost:8080/friends/is-friend/' + id, {});
+  }
 
+  getFriendList(id: Number): Observable<any> {
+    return this.httpclient.get<any>('http://localhost:8080/friends/list/' + id, {});
+  }
+
+  acceptFriend(id: Number): Observable<any> {
+    return this.httpclient.post<any>('http://localhost:8080/friends/accept-friend/' + id, {});
   }
 }
