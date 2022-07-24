@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {UserForumRelationService} from "../shared/services/userForumRelationService";
 import {AuthService} from "../shared/services/authService";
 import {HiddenParamsService} from "../shared/services/hiddenParamsService";
 import {PostService} from "../shared/services/postService";
+import {PostVote} from "../shared/entities/PostVote";
 
 @Component({
   selector: 'app-forum',
@@ -16,20 +17,30 @@ export class ForumComponent implements OnInit {
   public loggedUser = this.authService.loggedUser;
   posts = <any[]>([]);
   private category: string = 'Popular';
+  private limit: number  = 10;
+  private offset: number = 0;
+  private loading: boolean = true;
+  private stopCalls: boolean = false;
 
   constructor(private route: ActivatedRoute, private userForumRelationService: UserForumRelationService,
               private authService: AuthService, private router: Router, private hiddenParamsService: HiddenParamsService,
               private postService: PostService) {
     this.forum = route.snapshot.data['forumResolver'];
   }
-
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+      this.offset = this.limit;
+      this.loading = true;
+      this.getPost();
+    }
+  }
   ngOnInit(): void {
     this.getUserForumRelation();
     this.getPost();
   }
 
   joinOrQuit() {
-
     if (this.hasJoinned) {
       this.userForumRelationService.deleteUserForumRelation(this.forum.id).subscribe(value => {
         this.hasJoinned = !value;
@@ -65,9 +76,17 @@ export class ForumComponent implements OnInit {
   }
 
   getPost() {
-    this.postService.getPostsForForum(this.forum.id).subscribe(data => {
-      this.posts = data;
-      console.log(data);
+    if(this.stopCalls) {
+      return;
+    }
+    this.postService.getPostsForForum(this.forum.id, this.category, this.offset, this.limit).subscribe(data => {
+      data.forEach((item: any) => {
+        this.posts.push(item);
+      })
+      if(data.length < this.limit) {
+        this.stopCalls = true;
+      }
+      this.loading = false;
     })
   }
 
@@ -89,5 +108,26 @@ export class ForumComponent implements OnInit {
 
   select(category: string) {
     this.category = category;
+    this.offset = 0;
+    this.posts = [];
+    this.stopCalls = false;
+    this.getPost();
   }
+
+  upvote(isUpvote: boolean, postItem: any) {
+    const upvote: PostVote = {
+      id: null,
+      upvote: isUpvote,
+      postId: postItem.post.id,
+      userId: null
+    }
+    this.postService.upvote(upvote).subscribe(data => {
+          postItem.upvote = data.upvote;
+          postItem.hasUpvote = true;
+          this.postService.getPostById(postItem.post.id).subscribe(post => {
+            postItem.post = post;
+      });
+    });
+  }
+
 }

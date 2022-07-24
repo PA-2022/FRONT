@@ -163,7 +163,6 @@ export class PostComponent implements OnInit {
           this.userPostVote = data;
         });
       }
-
     });
   }
   upvoteComment(isUpvote: boolean, comment: any, parentId: number|null) {

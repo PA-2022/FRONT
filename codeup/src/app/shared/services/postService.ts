@@ -82,9 +82,9 @@ export class PostService {
     )
   }
 
-  getPostsForForum(id: Number) {
+  getPostsForForum(id: Number, category: String, offset: number, limit: number) {
     return this.httpclient.get<any>(
-      'http://localhost:8080/posts/post-list/forum/' + id
+      'http://localhost:8080/posts/post-list/forum/' + id + '/category/' + category + '/offset/' + offset + '/limit/' + limit
     )
   }
 }

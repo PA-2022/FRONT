@@ -29,14 +29,16 @@
           <div class="row">
             <div class="col-md-2">
               <div class="center">
-                <mat-icon>expand_less</mat-icon>
+                <mat-icon style="{{post.hasUpvote && post.upvote ? 'color: red' : ''}}" (click)="upvote(true, post)">expand_less</mat-icon>
                 <p style="margin:0">{{post.post.note}}</p>
-                <mat-icon>expand_more</mat-icon>
+                <mat-icon style="{{ post.hasUpvote && !post.upvote ? 'color: #FFC500' : ''}}" (click)="upvote(false, post)">expand_more</mat-icon>
               </div>
             </div>
             <div class="col-md-10" style="cursor:pointer;" (click)="goToPost(post.post.id)">
               <div>
-                <p style="display: inline; font-weight: bold">{{post.user}}</p>
+                <img style="display: inline; width: 30px; height: 30px; border-radius: 50%" src="{{post.userImage ? post.userImage :
+                'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}">
+                <p style="display: inline; font-weight: bold">&nbsp;&nbsp;{{post.user}}</p>
                 <p style="display: inline; color: dimgray">&nbsp;&nbsp;Published {{post.post.creationDate | date: "MMM dd, YYYY HH:MM"}}<label *ngIf="!isSameDate(post.post.creationDate, post.post.lastUpdateDate)"> - Edited {{post.post.lastUpdateDate | date:"MMMM dd, YYYY HH:MM"}}</label></p>
               </div>
               <br>
