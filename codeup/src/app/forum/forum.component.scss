@@ -18,7 +18,7 @@
 .sort {
   background-color: transparent;
   box-shadow: none;
-  color: #878a8c;
+  color: #FFC500;
   font-size: large;
 }
 
@@ -48,6 +48,7 @@
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
 }
+
 
 .tag {
   background-color: #FFC500;
@@ -84,4 +85,9 @@
   max-width: 100%;
   background-color: #4f4f50;
   padding-bottom: 20px;
+}
+.selected {
+  background-color: #FFC500!important;
+  color: white;
+  border-radius: 20px;
 }

@@ -81,4 +81,10 @@ export class PostService {
       'http://localhost:8080/comments/comment-post/' + commentId
     )
   }
+
+  getPostsForForum(id: Number) {
+    return this.httpclient.get<any>(
+      'http://localhost:8080/posts/post-list/forum/' + id
+    )
+  }
 }
