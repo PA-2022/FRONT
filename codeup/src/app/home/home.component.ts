@@ -45,7 +45,6 @@ export class HomeComponent implements OnInit {
     this.postService.getPostsForHome(this.category, this.offset, this.limit).subscribe(data => {
       data.forEach((item: any) => {
         this.posts.push(item);
-        console.log(this.posts.length)
       })
       if(data.length < this.limit) {
         this.stopCalls = true;

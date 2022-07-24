@@ -56,10 +56,8 @@ export class PostComponent implements OnInit {
       this.forum = value
     });
 
-    console.log(this.post);
     this.postService.getPostContentByPostId(Number(this.post.id)).subscribe(value => {
       this.contents = value
-      console.log(this.contents)
     });
 
 
@@ -81,7 +79,6 @@ export class PostComponent implements OnInit {
   getComments(): void {
     this.postService.getPostComments(Number(this.post.id)).subscribe(value => {
       this.comments = value;
-      console.log(this.comments);
       this.getPostCommentCount();
     })
   }

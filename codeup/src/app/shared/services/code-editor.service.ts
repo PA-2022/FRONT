@@ -4,13 +4,15 @@ import axios from 'axios';
 import { Observable } from 'rxjs/internal/Observable';
 import { CodeSourceDao } from '../../code-editor/codeSourceDao';
 import { OutputDao } from '../../code-editor/outputDao';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CodeEditorService {
+  private API_URL= environment.API_URL;
 
-  configUrl = "http://localhost:8080/code";
+  configUrl = this.API_URL + "code";
 
   constructor(private http: HttpClient) {  }
 

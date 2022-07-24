@@ -130,7 +130,6 @@ export class AccountComponent implements OnInit {
   getFriendList() {
     this.userService.getFriendList(this.user.id).subscribe(data => {
       this.friendList = data;
-      console.log(this.friendList);
     })
   }
 }
