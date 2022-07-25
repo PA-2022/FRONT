@@ -68,6 +68,7 @@ export class AccountComponent implements OnInit {
       };
       this.userService.updateUserById(this.user.id, updatedUser).subscribe(value => {
         this.user = value;
+        location.reload();
       });
     }
 
