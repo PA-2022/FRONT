@@ -66,4 +66,5 @@ export class AppComponent {
   fullSearch() {
     window.location.href = ("/search/" +this.searchString);
   }
+
 }
