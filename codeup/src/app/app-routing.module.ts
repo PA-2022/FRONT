@@ -14,6 +14,7 @@ import {ResetpwdComponent} from "./resetpwd/resetpwd.component";
 import {LostPwdComponent} from "./lost-pwd/lost-pwd.component";
 import {CgvComponent} from "./cgv/cgv.component";
 import {ConditionsComponent} from "./conditions/conditions.component";
+import {UserPostsComponent} from "./user-posts/user-posts.component";
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'user-lost-password', component: LostPwdComponent},
   { path: 'terms-and-conditions', component: CgvComponent},
   { path: 'privacy-policy', component: ConditionsComponent},
+  { path: 'user-posts/:userId', component: UserPostsComponent},
   {
     path : 'account/:id',
     component: AccountComponent,

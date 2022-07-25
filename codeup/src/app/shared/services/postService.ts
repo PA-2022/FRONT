@@ -94,9 +94,16 @@ export class PostService {
   getPostsForHome(category: string, offset: number, limit: number) {
     return this.httpclient.get<any>(
       this.API_URL + 'posts/post-list/category/' + category + '/offset/' + offset + '/limit/' + limit
-    )  }
+    )
+  }
 
   deletePost(id: any) {
     return this.httpclient.delete(this.API_URL + 'posts/' + id);
+  }
+
+  getPostsForUser(id: number | undefined, category: string, offset: number, limit: number) {
+    return this.httpclient.get<any>(
+      this.API_URL + 'posts/post-list/user/' + id +'/category/' + category + '/offset/' + offset + '/limit/' + limit
+    )
   }
 }

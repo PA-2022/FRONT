@@ -43,6 +43,7 @@ import { ResetpwdComponent } from './resetpwd/resetpwd.component';
 import { LostPwdComponent } from './lost-pwd/lost-pwd.component';
 import { CgvComponent } from './cgv/cgv.component';
 import { ConditionsComponent } from './conditions/conditions.component';
+import { UserPostsComponent } from './user-posts/user-posts.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ConditionsComponent } from './conditions/conditions.component';
     ResetpwdComponent,
     LostPwdComponent,
     CgvComponent,
-    ConditionsComponent
+    ConditionsComponent,
+    UserPostsComponent
   ],
     imports: [
         BrowserModule,
