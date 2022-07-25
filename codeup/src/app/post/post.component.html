@@ -13,7 +13,12 @@
         <div class="col-md-10">
           <div>
             <a *ngIf="user" href="/account/{{user.id}}"
-               style="display: inline; font-weight: bold; color: black">{{user ? user.username : "deleted"}} . </a>
+               style="display: inline; font-weight: bold; color: black">
+              <img style="width: 30px; height:30px; border-radius: 50%"
+                   src="{{ user.profilePictureUrl ? user.profilePictureUrl :
+                   'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}">
+              &nbsp;
+              {{user ? user.username : "deleted"}} . </a>
             <p *ngIf="post" style="display: inline; color: dimgray">
               &nbsp;&nbsp;Published {{post.creationDate | date: "MMM dd, YYYY"}}
               <label *ngIf="!isSameDate(post.creationDate, post.lastUpdateDate)"> - Edited {{post.lastUpdateDate | date:"MMMM dd, YYYY HH:MM"}}</label>
@@ -96,9 +101,12 @@
                     <p style="margin:0">{{item.comment.comment.note}}</p>
                     <mat-icon style="cursor: pointer" (click)="upvoteComment(false, item.comment, null)" class="{{item.comment.optionalCommentVote && !item.comment.optionalCommentVote.upvote ? 'downvote' : null}}">expand_more</mat-icon>
                   </div>
-                  <img src="https://bootdey.com/img/Content/user_2.jpg" class="avatar" alt="">
                   <div class="post-comments">
-                    <p class="meta">{{item.comment.comment.creationDate | date: "MMM dd, YYYY"}} <a
+                    <p class="meta">
+                      <img style="width: 30px; height: 30px; border-radius: 50%" src="{{ item.comment.user.profilePictureUrl ? item.comment.user.profilePictureUrl :
+                   'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}" class="avatar" alt="">
+                      &nbsp;&nbsp;
+                      {{item.comment.comment.creationDate | date: "MMM dd, YYYY"}} <a
                       href="/account/{{item.comment.user.id}}">{{item.comment.user.username}}</a> says : <i
                       class="pull-right"><a style="color: #82b440; cursor: pointer;"
                                             (click)="scrollToElement(target); respondId = item.comment.comment.id; respondUsername = item.comment.user.username"><small>Reply</small></a></i>
@@ -131,9 +139,11 @@
                         <p style="margin:0">{{response.comment.note}}</p>
                         <mat-icon style="cursor: pointer" (click)="upvoteComment(false, response, item.comment.comment.id)" class="{{response.optionalCommentVote && !response.optionalCommentVote.upvote ? 'downvote' : null}}">expand_more</mat-icon>
                       </div>
-                      <img src="https://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
                       <div class="post-comments" style="margin-left: 14%">
-                        <p class="meta">{{response.comment.creationDate | date: "MMM dd, YYYY"}} <a
+                        <p class="meta">
+                          <img style="width: 30px; height: 30px; border-radius: 50%" src="{{ response.user.profilePictureUrl ? response.user.profilePictureUrl :
+                   'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}" class="avatar" alt="">
+                          &nbsp;&nbsp;{{response.comment.creationDate | date: "MMM dd, YYYY"}} <a
                           href="#">{{response.user.username}}</a> says :
                           <i class="pull-right"><a
                             (click)="scrollToElement(target); respondId = item.comment.comment.id; respondUsername = response.user.username"><small>Reply</small></a></i>
