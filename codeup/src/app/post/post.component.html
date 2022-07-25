@@ -15,7 +15,11 @@
             <a *ngIf="user" href="/account/{{user.id}}"
                style="display: inline; font-weight: bold; color: black">{{user ? user.username : "deleted"}} . </a>
             <p *ngIf="post" style="display: inline; color: dimgray">
-              &nbsp;&nbsp;Published {{post.creationDate | date: "MMM dd, YYYY"}}</p>
+              &nbsp;&nbsp;Published {{post.creationDate | date: "MMM dd, YYYY"}}
+              <label *ngIf="!isSameDate(post.creationDate, post.lastUpdateDate)"> - Edited {{post.lastUpdateDate | date:"MMMM dd, YYYY HH:MM"}}</label>
+            </p>
+            <button *ngIf="loggedUser && loggedUser.id === post.userId" style="display: inline; float: right; background-color: #FFC500" mat-raised-button
+                    color="accent" (click)="deletePost()">Delete post</button>
           </div>
           <br>
           <h2 *ngIf="post">{{post.title}}</h2>
@@ -104,7 +108,7 @@
                                (click)="scrollToElement(target); editSetup(item.comment.comment)">edit</small> &nbsp;
                         <small style="cursor: pointer; color: red"
                                *ngIf="loggedUser && item.comment.user.id === loggedUser.id"
-                               (click)="delete(item.comment.comment.id)">delete</small>
+                               (click)="deleteComment(item.comment.comment.id)">delete</small>
                       </label> </p>
                     <p>
                       {{item.comment.comment.content}}
@@ -139,7 +143,7 @@
                                  (click)="scrollToElement(target); editSetup(response.comment)">edit</small> &nbsp;
                           <small style="cursor: pointer; color: red"
                                  *ngIf="loggedUser && response.user.id === loggedUser.id"
-                                 (click)="delete(response.comment.id)">delete</small>
+                                 (click)="deleteComment(response.comment.id)">delete</small>
                         </label> </p>
                         <p>
                           {{response.comment.content}}

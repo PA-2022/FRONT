@@ -95,4 +95,8 @@ export class PostService {
     return this.httpclient.get<any>(
       this.API_URL + 'posts/post-list/category/' + category + '/offset/' + offset + '/limit/' + limit
     )  }
+
+  deletePost(id: any) {
+    return this.httpclient.delete(this.API_URL + 'posts/' + id);
+  }
 }
