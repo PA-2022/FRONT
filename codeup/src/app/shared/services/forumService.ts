@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {User} from "../entities/User";
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {Forum} from "../entities/Forum";
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ForumService {
+  private API_URL= environment.API_URL;
 
   constructor(private httpclient: HttpClient) {
   }
@@ -15,12 +16,12 @@ export class ForumService {
 
   public getForums(limit: number, offset: number): Observable<Array<Forum>> {
     return this.httpclient.get<Array<Forum>>(
-      'http://localhost:8080/forums/all/limit/' + limit + '/offset/' + offset
+      this.API_URL + 'forums/all/limit/' + limit + '/offset/' + offset
     );
   }
 
   getForumById(id: number): Observable<Forum> {
     return this.httpclient.get<Forum>(
-      'http://localhost:8080/forums/0' + id)
+      this.API_URL + 'forums/0' + id)
   }
 }

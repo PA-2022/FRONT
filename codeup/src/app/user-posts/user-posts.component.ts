@@ -1,17 +1,20 @@
 import {Component, HostListener, OnInit} from '@angular/core';
+import {PostVote} from "../shared/entities/PostVote";
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserForumRelationService} from "../shared/services/userForumRelationService";
 import {AuthService} from "../shared/services/authService";
 import {HiddenParamsService} from "../shared/services/hiddenParamsService";
 import {PostService} from "../shared/services/postService";
-import {PostVote} from "../shared/entities/PostVote";
+import {UserService} from "../shared/services/userService";
+import {User} from "../shared/entities/User";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-user-posts',
+  templateUrl: './user-posts.component.html',
+  styleUrls: ['./user-posts.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class UserPostsComponent implements OnInit {
+
+  public forum: any
   public loggedUser = this.authService.loggedUser;
   posts = <any[]>([]);
   private category: string = 'Popular';
@@ -19,38 +22,32 @@ export class HomeComponent implements OnInit {
   private offset: number = 0;
   private loading: boolean = true;
   private stopCalls: boolean = false;
+  private userId: any = this.route.snapshot.params['userId'];
+  user: any = null;
 
-  constructor(private route: ActivatedRoute, private userForumRelationService: UserForumRelationService,
+  constructor(private route: ActivatedRoute,
               private authService: AuthService, private router: Router, private hiddenParamsService: HiddenParamsService,
-              private postService: PostService) {
-    if(!this.authService.loggedUser) {
-      setTimeout(() => {
-        this.loggedUser = this.authService.loggedUser}, 1000);
+              private postService: PostService, private userService: UserService) {
+    if(!this.userId) {
+      this.router.navigate(['/']);
+    }
+
+    this.userService.getUserById(this.userId).subscribe(data => {
+      this.user = data;
+    })
+  }
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+      this.offset = this.limit;
+      this.loading = true;
+      this.getPost();
     }
   }
+
 
   ngOnInit(): void {
     this.getPost();
-  }
-
-  createPost() {
-    this.router.navigate(
-      ['/post-create']);
-  }
-
-  getPost() {
-    if(this.stopCalls) {
-      return;
-    }
-    this.postService.getPostsForHome(this.category, this.offset, this.limit).subscribe(data => {
-      data.forEach((item: any) => {
-        this.posts.push(item);
-      })
-      if(data.length < this.limit) {
-        this.stopCalls = true;
-      }
-      this.loading = false;
-    })
   }
 
   isSameDate(date1Str : string, date2Str: string): boolean {
@@ -59,10 +56,6 @@ export class HomeComponent implements OnInit {
     return( date1.getDate() == date2.getDate() && date1.getFullYear() == date2.getFullYear()
       && date1.getMonth() == date2.getMonth() && date1.getHours() == date2.getHours());
 
-  }
-
-  goToPost(id: Number) {
-    this.router.navigate(['/post/' + id])
   }
 
   isSelected(category: string) {
@@ -93,13 +86,22 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
-  @HostListener("window:scroll", [])
-  onScroll(): void {
-    if ((window.innerHeight + window.scrollY) >= (document.body.scrollHeight -1)) {
-      this.offset = this.limit;
-      this.loading = true;
-      this.getPost();
-    }
+  goToPost(id: Number) {
+    this.router.navigate(['/post/' + id])
   }
+  getPost() {
+    if(this.stopCalls) {
+      return;
+    }
+    this.postService.getPostsForUser(this.userId, this.category, this.offset, this.limit).subscribe(data => {
+      data.forEach((item: any) => {
+        this.posts.push(item);
+      })
+      if(data.length < this.limit) {
+        this.stopCalls = true;
+      }
+      this.loading = false;
+    })
+  }
+
 }

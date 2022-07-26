@@ -6,7 +6,7 @@
     <div (click)="goToPost(result.post.id)" class="row" *ngFor="let result of searchResults.subscribedSubredditsPosts;" style="background-color: white; border-radius: 5px; width: 100%; margin-top: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer">
       <div class="col col-md-12">
         <p style="color: #787c7e">
-          <img style="width: 20px; height:20px; border-radius: 50%" src="{{ result.userImage ? result.userImage : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}">
+          <img style="width: 30px; height:30px; border-radius: 50%" src="{{ result.userImage ? result.userImage : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}">
           &nbsp;
           <a style="color: black" href="/account/{{result.post.userId}}">{{result.user }}</a> • published by {{result.user}} the {{result.post.creationDate | date :"MMM dd, YYYY"}}</p>
         <h2>{{result.post.title}}</h2>
@@ -20,7 +20,7 @@
     <div (click)="goToPost(result.post.id)" class="row" *ngFor="let result of searchResults.randomPosts;" style="background-color: white; border-radius: 5px; width: 100%; margin-top: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer">
       <div class="col col-md-12">
         <p style="color: #787c7e">
-          <img style="width: 20px; height:20px; border-radius: 50%" src="{{ result.userImage ? result.userImage : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}">
+          <img style="width: 30px; height:30px; border-radius: 50%" src="{{ result.userImage ? result.userImage : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}">
           &nbsp;<a style="color: black" href="/account/{{result.post.userId}}">
           {{result.user }}</a> • published by {{result.user}} the {{result.post.creationDate | date :"MMM dd, YYYY"}}</p>
         <h2>{{result.post.title}}</h2>

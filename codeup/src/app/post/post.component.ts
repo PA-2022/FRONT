@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import {Comment} from "../shared/entities/Comment";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Post} from "../shared/entities/Post";
 import {UserService} from "../shared/services/userService";
 import {ForumService} from "../shared/services/forumService";
@@ -46,7 +46,7 @@ export class PostComponent implements OnInit {
   userPostVote: any;
 
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private forumService: ForumService, private postService: PostService, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private forumService: ForumService, private postService: PostService, private authService: AuthService, private router: Router) {
     this.post = route.snapshot.data['postResolver'];
 
     this.userService.getUserById(Number(this.post.userId)).subscribe(value => {
@@ -57,10 +57,8 @@ export class PostComponent implements OnInit {
       this.forum = value
     });
 
-    console.log(this.post);
     this.postService.getPostContentByPostId(Number(this.post.id)).subscribe(value => {
       this.contents = value
-      console.log(this.contents)
     });
 
 
@@ -82,7 +80,6 @@ export class PostComponent implements OnInit {
   getComments(): void {
     this.postService.getPostComments(Number(this.post.id)).subscribe(value => {
       this.comments = value;
-      console.log(this.comments);
       this.getPostCommentCount();
     })
   }
@@ -122,12 +119,19 @@ export class PostComponent implements OnInit {
     });
   }
 
-  delete(commentId: number) {
+  deleteComment(commentId: number) {
     if (confirm('Are you sure you want to delete your comment ?')) {
       this.postService.deleteComment(commentId).subscribe(response =>{
         this.getComments();
         this.allContent = [];
         this.codeEditorBox.clear();
+      });
+    }
+  }
+  deletePost() {
+    if (this.loggedUser?.id === this.post.userId && confirm('Are you sure you want to delete your post ?')) {
+      this.postService.deletePost(this.post.id).subscribe(response =>{
+        this.router.navigate(['/']);
       });
     }
   }
@@ -167,9 +171,10 @@ export class PostComponent implements OnInit {
         });
         this.postService.getUserUpvote(this.post.id).subscribe(data => {
           this.userPostVote = data;
+        }, error => {
+          this.userPostVote = null;
         });
       }
-
     });
   }
   upvoteComment(isUpvote: boolean, comment: any, parentId: number|null) {
@@ -255,5 +260,12 @@ export class PostComponent implements OnInit {
       i++;
     }
     )
+  }
+  isSameDate(date1Str : any, date2Str: any): boolean {
+    const date1 = new Date(date1Str);
+    const date2 = new Date(date2Str);
+    return( date1.getDate() == date2.getDate() && date1.getFullYear() == date2.getFullYear()
+      && date1.getMonth() == date2.getMonth() && date1.getHours() == date2.getHours());
+
   }
 }

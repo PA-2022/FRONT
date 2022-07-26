@@ -5,7 +5,7 @@
         <h1 id="control-5689247">Lost password</h1></div>
       <div  style="padding-top: 20px">
         <label for="pwd">Email</label>
-        <input [(ngModel)]="email" minlength="6" type="email" placeholder="Password" class="form-control" name="pwd" id="pwd" required>
+        <input [(ngModel)]="email" minlength="6" type="email" placeholder="Email" class="form-control" name="pwd" id="pwd" required>
         <div class="alert-danger" *ngIf="email.length === 0">Email is required</div>
         <div class="alert-danger" *ngIf="!isEmail(email)">
           Email must be a valid email address

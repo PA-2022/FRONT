@@ -15,7 +15,8 @@
                  [formControl]="myControl"
                  [matAutocomplete]="auto"
                  [(ngModel)]="searchString"
-                 (keyup)="lightSearch()">
+                 (keyup)="lightSearch()"
+                 (keyup.enter)="fullSearch()">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of options" [value]="option.post.title" (click)="goToPost(option.post.id)">
               {{option.post.title }} - by {{option.user}} ({{option.forum}})

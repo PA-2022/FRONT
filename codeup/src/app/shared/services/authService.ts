@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, map, Observable} from 'rxjs';
 import {User} from "../entities/User";
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private API_URL= environment.API_URL;
+
   public authEvent = new BehaviorSubject<boolean>(false);
   public userEvent = new BehaviorSubject<boolean>(false);
   public loggedUser: User| undefined;
@@ -16,7 +19,7 @@ export class AuthService {
 
   login(value: object): Observable<any> {
     return this.httpclient.post<any>(
-      'http://localhost:8080/login',
+      this.API_URL + 'login',
         value
     );
   }
@@ -31,7 +34,7 @@ export class AuthService {
       lastname: value.lastname
     }
 
-    return this.httpclient.post('http://localhost:8080/users/register', params);
+    return this.httpclient.post(this.API_URL + 'users/register', params);
   }
 
   emitAuthStatus(state: boolean): void {
@@ -43,7 +46,7 @@ export class AuthService {
 
   getCurrentUser(): Observable<User|null> {
     const user = this.httpclient.get<User|null>(
-      'http://localhost:8080/users/current'
+      this.API_URL + 'users/current'
     );
     user.subscribe((us) => {
       if (us != null) {
@@ -56,7 +59,7 @@ export class AuthService {
 
   logout(): void {
     this.httpclient
-      .post<any>('http://localhost:8080/logout', '')
+      .post<any>(this.API_URL + 'logout', '')
       .subscribe(() => {
         this.loggedUser = undefined;
         this.emitAuthStatus(false);
@@ -67,12 +70,12 @@ export class AuthService {
 
   testEmail(email: string): Observable<boolean> {
       return this.httpclient.get<boolean>(
-      'http://localhost:8080/users/email-exists/'+ email
+      this.API_URL + 'users/email-exists/'+ email
     );
   }
   testUsername(username: string): Observable<boolean> {
       return this.httpclient.get<boolean>(
-      'http://localhost:8080/users/username-exists/'+ username
+      this.API_URL + 'users/username-exists/'+ username
     );
   }
 
