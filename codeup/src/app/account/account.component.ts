@@ -20,6 +20,7 @@ export class AccountComponent implements OnInit {
   private file: any;
   isFriendData: Friend|null = null;
   friendList = <any[]>([]);
+  isLogged: boolean = false;
 
   constructor(private userService: UserService, private authService: AuthService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar
   ) {
@@ -39,6 +40,7 @@ export class AccountComponent implements OnInit {
 
     if (this.authService.loggedUser && this.authService.loggedUser.id === this.user.id) {
       this.isSameUser = true;
+      this.isLogged = true;
       this.userForm.setValue({
         username: this.user.username,
         firstname: this.user.firstname,

@@ -79,7 +79,7 @@
           <br>
           <button [disabled]="!!isFriendData" *ngIf="!isSameUser" (click)="addFriend()" mat-raised-button color="accent"
                   style="background-color: #FF9600; float: right;">
-            <label *ngIf="!isFriendData">Add friend</label>
+            <label *ngIf="isLogged && !isFriendData">Add friend</label>
             <label
               *ngIf="isFriendData">{{isFriendData.isAccepted ? 'Your are friends' : 'Friend request sended' }}</label>
           </button>

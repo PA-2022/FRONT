@@ -40,7 +40,7 @@ export class UserService {
   }
 
   lostPassword(email: String) {
-    return this.httpclient.post<boolean>(this.API_URL + 'users/lost-password-2/' + email, {});
+    return this.httpclient.post<boolean>(this.API_URL + 'users/lost-password/' + email, {});
   }
 
   uploadPp(image: any): Observable<String> {
@@ -64,5 +64,10 @@ export class UserService {
 
   acceptFriend(id: Number): Observable<any> {
     return this.httpclient.post<any>(this.API_URL + 'friends/accept-friend/' + id, {});
+  }
+
+  test(program: String): Observable<any>  {
+
+    return this.httpclient.post<any>( this.API_URL + "users/test-code", program);
   }
 }

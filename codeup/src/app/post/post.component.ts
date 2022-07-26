@@ -165,6 +165,8 @@ export class PostComponent implements OnInit {
         });
         this.postService.getUserUpvote(this.post.id).subscribe(data => {
           this.userPostVote = data;
+        }, error => {
+          this.userPostVote = null;
         });
       }
     });

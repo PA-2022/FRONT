@@ -85,8 +85,8 @@ export class HomeComponent implements OnInit {
       userId: null
     }
     this.postService.upvote(upvote).subscribe(data => {
-      postItem.upvote = data.upvote;
-      postItem.hasUpvote = true;
+      postItem.upvote = data ? data.upvote : null;
+      postItem.hasUpvote = !!data;
       this.postService.getPostById(postItem.post.id).subscribe(post => {
         postItem.post = post;
       });
