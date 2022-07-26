@@ -9,7 +9,7 @@ import { CodeEditorService } from '../shared/services/code-editor.service';
 })
 export class CodeViewerComponent implements OnInit {
   @Input() output: String | undefined;
-  @Input() code: any;
+  @Input() content: any;
 
   constructor(private codeEditorService: CodeEditorService) { }
 
@@ -18,11 +18,14 @@ export class CodeViewerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  runCode(language: string, code: string): void {
+  runCode( code: string): void {
     const codeSource: CodeSourceDao = {
-      language: language,
+      language: this.content.language,
       code: code
     };
+
+    console.log(this.content);
+
 
     this.codeEditorService.postCode(codeSource).subscribe(
       (response) => {

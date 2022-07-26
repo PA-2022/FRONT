@@ -14,6 +14,7 @@ import { ContentEditorComponent } from '../shared/entities/ContentEditorComponen
 import { TextEditorComponent } from '../text-editor/text-editor.component';
 import { CodeEditorComponent } from '../code-editor/code-editor.component';
 import { CommentContent } from '../shared/entities/CommentContent';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-post',
@@ -115,6 +116,9 @@ export class PostComponent implements OnInit {
       this.commentValue = "";
       this.respondUsername = undefined;
       this.respondId = null;
+
+      this.allContent = [];
+      this.codeEditorBox.clear();
     });
   }
 
@@ -122,6 +126,8 @@ export class PostComponent implements OnInit {
     if (confirm('Are you sure you want to delete your comment ?')) {
       this.postService.deleteComment(commentId).subscribe(response =>{
         this.getComments();
+        this.allContent = [];
+        this.codeEditorBox.clear();
       });
     }
   }
@@ -203,17 +209,34 @@ export class PostComponent implements OnInit {
   }
 
   addText(){
-    this.allContent.push(new NewContentItem(TextEditorComponent, {index: this.allContent.length, text: ""}));
+    this.allContent.push(new NewContentItem(TextEditorComponent, {index: uuidv4(), text: ""}));
     let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component);
     newCode.instance.data = this.allContent[this.allContent.length - 1].data;
+
+    newCode.instance.deleteEvent.pipe().subscribe((value: any) => {
+      let currentContent = this.allContent.find(x => x.data.index === value);
+      if (currentContent) {
+        this.allContent.splice(this.allContent.indexOf(currentContent), 1);
+      }
+      newCode.destroy();
+    });
+
 
     this.addContentDiv.nativeElement.style.visibility = "hidden";
   }
 
   addCode(){
-    this.allContent.push(new NewContentItem(CodeEditorComponent, {index: this.allContent.length, code: this.defaultCode}));
+    this.allContent.push(new NewContentItem(CodeEditorComponent, {index: uuidv4(), code: this.defaultCode, language: "python"}));
     let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component);
     newCode.instance.data = this.allContent[this.allContent.length - 1].data;
+
+    newCode.instance.deleteEvent.pipe().subscribe((value: any) => {
+      let currentContent = this.allContent.find(x => x.data.index === value);
+      if (currentContent) {
+        this.allContent.splice(this.allContent.indexOf(currentContent), 1);
+      }
+      newCode.destroy();
+    });
 
     this.addContentDiv.nativeElement.style.visibility = "hidden";
   }
@@ -221,11 +244,12 @@ export class PostComponent implements OnInit {
   pushCodeAndTextInAllContentPost() {
 
     let i = 0;
+    this.allContentPost = [];
     this.allContent.forEach(value => {
       if (value.component === CodeEditorComponent) {
-        this.allContentPost.push(new Content(null, value.data.code, null, 1, i));
+        this.allContentPost.push(new Content(null, value.data.code, null, 1, i, value.data.language));
       } else if (value.component === TextEditorComponent) {
-        this.allContentPost.push(new Content(null, value.data.text, null, 0, i));
+        this.allContentPost.push(new Content(null, value.data.text, null, 0, i, null));
       }
 
       i++;

@@ -137,7 +137,7 @@ export class CreatePostComponent implements AfterViewInit {
   }
 
   addCode(){
-    this.allContent.push(new NewContentItem(CodeEditorComponent, { code: this.defaultCode, index: uuidv4() }));
+    this.allContent.push(new NewContentItem(CodeEditorComponent, { code: this.defaultCode, index: uuidv4(), language: "python"}));
     let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component) as ComponentRef<CodeEditorComponent>;
     newCode.instance.data = this.allContent[this.allContent.length - 1].data;
 
@@ -159,9 +159,9 @@ export class CreatePostComponent implements AfterViewInit {
     let i = 0;
     this.allContent.forEach(value => {
       if (value.component === CodeEditorComponent) {
-        this.allContentPost.push(new Content(null, value.data.code, null, 1, i));
+        this.allContentPost.push(new Content(null, value.data.code, null, 1, i, value.data.language));
       } else if (value.component === TextEditorComponent) {
-        this.allContentPost.push(new Content(null, value.data.text, null, 0, i));
+        this.allContentPost.push(new Content(null, value.data.text, null, 0, i, null));
       }
 
       i++;
