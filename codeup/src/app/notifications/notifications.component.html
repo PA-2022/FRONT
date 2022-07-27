@@ -1,0 +1,33 @@
+<div class="container" style="max-width: 100%; min-height: 100vh; background-color: #dae0e6; padding-bottom: 20px">
+
+  <!-- no notifications -->
+  <div class="row col-md-10" style="margin: auto; padding-top: 4vh" *ngIf="notifications && notifications.length === 0">
+    <h2>No notifications</h2>
+  </div>
+  <!-- unread notifs -->
+  <div class="row col-md-6" style="margin: auto; padding-top: 4vh" *ngIf="activeNotifications && activeNotifications.length > 0">
+    <h2>Unread user notifications</h2>
+    <a (click)="readAll()" style="cursor:pointer; font-style: italic; color: black; text-decoration: underline">Mark all as read</a>
+    <div class="row" *ngFor="let notification of activeNotifications;"
+         style="background-color: white; border-radius: 5px; margin-top: 10px; padding-top: 5px; padding-bottom: 5px; ">
+      <h2 style="color: black; width: fit-content;">
+        {{notification.title}}
+      </h2>
+      <button mat-raised-button color="accent"
+              style="background-color: #FFC500; width: fit-content; margin-left: auto; color: white;"><a
+        style="color: whitesmoke; text-decoration: none;" href="{{notification.url}}">Go to page</a></button>
+      <a style="cursor: pointer;font-style: italic; text-decoration: underline; text-align: right; margin-top: 20px"
+         (click)="readNotification(notification.id)">Mark as read</a>
+    </div>
+  </div>
+  <!-- read notifs -->
+  <div class="row col-md-6" style="margin: auto; padding-top: 4vh" *ngIf="inactiveNotifications && inactiveNotifications.length > 0">
+    <h2>Unread user notifications</h2>
+    <div class="row" *ngFor="let notification of inactiveNotifications;"
+         style="background-color: white; border-radius: 5px; margin-top: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;">
+      <h2 style="color: black; width: fit-content;">
+        {{notification.title}}
+      </h2>
+    </div>
+  </div>
+</div>

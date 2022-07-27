@@ -1,8 +1,8 @@
 <div class="container top-container" style="background-color: {{forum.color}}">
   <div class="row">
     <div class="col col-md-8" style="margin: auto; margin-top: 2vh; padding: 0">
-      <img style="max-width: 15%; border-radius: 100%; margin-top: 10px; display: inline"
-           src="https://a.thumbs.redditmedia.com/zDOFJTXd6fmlD58VDGypiV94Leflz11woxmgbGY6p_4.png">
+      <button class="not-disabled" disabled mat-fab style="display: inline; font-size: 7vw; border-radius: 50%; background-color: {{forum.color}}; width: 9vw; height: 9vw">{{forum.title.charAt(0)}}{{ forum.title.length > 1 ? forum.title.charAt(forum.title.length - 1) : ''}}</button>
+
       <h1 style=" display: inline; margin-left: 2vw">{{forum.title}}</h1>
       <button *ngIf="loggedUser" style="display: inline; margin-left: 2vw; background-color: #FFC500" mat-raised-button color="accent" (click)="joinOrQuit()">{{hasJoinned ? 'Quit' : 'Join'}}</button>
     </div>
@@ -24,8 +24,11 @@
           New
         </button>
       </div>
+      <div *ngIf="posts && posts.length === 0  " class="col col-md-12" style="margin: auto; padding-top: 4vh">
+        <h2>No results available ... 😥</h2>
+      </div>
       <div class="col col-md-12" *ngFor="let post of posts">
-        <div class="white-block sort-container">
+        <div class="white-block sort-container">F
           <div class="row">
             <div class="col-md-2">
               <div class="center">
@@ -50,8 +53,8 @@
         <div class="col col-md-3 sort-container white-block about" style="background-color: transparent">
         </div>
       </div>
-
     </div>
+
     <div class="col col-md-3 sort-container white-block about">
       <h2 style="
          background-image: url('https://media.discordapp.net/attachments/951109231099133972/971419158505984050/doodad.png');

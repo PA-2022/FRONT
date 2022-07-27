@@ -44,6 +44,10 @@ import { LostPwdComponent } from './lost-pwd/lost-pwd.component';
 import { CgvComponent } from './cgv/cgv.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { UserPostsComponent } from './user-posts/user-posts.component';
+import {MatBadgeModule} from "@angular/material/badge";
+import { NotificationsComponent } from './notifications/notifications.component';
+import { CreateForumComponent } from './create-forum/create-forum.component';
+import {ColorPickerModule} from "ngx-color-picker";
 
 @NgModule({
   declarations: [
@@ -65,34 +69,38 @@ import { UserPostsComponent } from './user-posts/user-posts.component';
     LostPwdComponent,
     CgvComponent,
     ConditionsComponent,
-    UserPostsComponent
+    UserPostsComponent,
+    NotificationsComponent,
+    CreateForumComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        NgbModule,
-        MatIconModule,
-        MatButtonModule,
-        MatExpansionModule,
-        MatDividerModule,
-        MatCardModule,
-        MatListModule,
-        FontAwesomeModule,
-        MatStepperModule,
-        MatProgressBarModule,
-        MatAutocompleteModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        FormsModule,
-        MatDialogModule,
-        HttpClientModule,
-        MatSnackBarModule,
-        AutosizeModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    NgbModule,
+    MatIconModule,
+    MatButtonModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatCardModule,
+    MatListModule,
+    FontAwesomeModule,
+    MatStepperModule,
+    MatProgressBarModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    AutosizeModule,
+    MatBadgeModule,
+    ColorPickerModule
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},
     {provide: UserResolver}
