@@ -44,6 +44,8 @@ import { LostPwdComponent } from './lost-pwd/lost-pwd.component';
 import { CgvComponent } from './cgv/cgv.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { UserPostsComponent } from './user-posts/user-posts.component';
+import {MatBadgeModule} from "@angular/material/badge";
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -65,34 +67,36 @@ import { UserPostsComponent } from './user-posts/user-posts.component';
     LostPwdComponent,
     CgvComponent,
     ConditionsComponent,
-    UserPostsComponent
+    UserPostsComponent,
+    NotificationsComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        NgbModule,
-        MatIconModule,
-        MatButtonModule,
-        MatExpansionModule,
-        MatDividerModule,
-        MatCardModule,
-        MatListModule,
-        FontAwesomeModule,
-        MatStepperModule,
-        MatProgressBarModule,
-        MatAutocompleteModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        FormsModule,
-        MatDialogModule,
-        HttpClientModule,
-        MatSnackBarModule,
-        AutosizeModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    NgbModule,
+    MatIconModule,
+    MatButtonModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatCardModule,
+    MatListModule,
+    FontAwesomeModule,
+    MatStepperModule,
+    MatProgressBarModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    AutosizeModule,
+    MatBadgeModule
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},
     {provide: UserResolver}

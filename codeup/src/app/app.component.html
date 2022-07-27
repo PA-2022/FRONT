@@ -27,6 +27,7 @@
     </div>
 
     <div class="align-right">
+      <a *ngIf="loggedUser" href="/notifications"><mat-icon  *ngIf="notificationCount > 0" style="color: #FF9600" matBadge="{{notificationCount}}" matBadgeColor="warn">notifications_active</mat-icon><mat-icon  *ngIf="notificationCount === 0" style="color: #FF9600">notifications</mat-icon></a>
       <button *ngIf="!loggedUser" style="background-color: #FFC500" mat-raised-button color="accent" (click)="openLogin()">Login</button>
       <button *ngIf="!loggedUser" style="background-color: #FF9600" mat-raised-button color="accent" (click)="openSignin()">Sign up</button>
       <div ngbDropdown class="d-inline-block" *ngIf="loggedUser">

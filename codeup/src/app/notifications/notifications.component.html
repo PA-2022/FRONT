@@ -1,0 +1,20 @@
+<div class="container" style="max-width: 100%; min-height: 100vh; background-color: #dae0e6; padding-bottom: 20px">
+
+  <!-- no notifications -->
+  <div class="row col-md-10" style="margin: auto; padding-top: 4vh" *ngIf="notifications && notifications.length === 0">
+    <h2>No notifications</h2>
+  </div>
+  <!-- followed posts -->
+  <div class="row col-md-10" style="margin: auto; padding-top: 4vh" *ngIf="notifications && notifications.length > 0">
+    <h2>User notifications</h2>
+    <div class="row" *ngFor="let notification of notifications;"
+         style="background-color: white; border-radius: 5px; width: 50vw; margin-top: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;">
+      <h2 style="color: black; width: fit-content;">
+        {{notification.title}}
+      </h2>
+      <button  mat-raised-button color="accent"
+               style="background-color: #FFC500; width: fit-content; margin-left: auto; color: white;" ><a style="color: whitesmoke; text-decoration: none;" href="{{notification.url}}">Go to page</a></button>
+      <a style="font-style: italic; text-decoration: underline; text-align: right; margin-top: 20px" (click)="readNotification()">Mark as read</a>
+    </div>
+  </div>
+</div>

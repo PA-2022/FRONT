@@ -7,6 +7,7 @@ import {AuthService} from "./shared/services/authService";
 import {User} from "./shared/entities/User";
 import {SearchService} from "./shared/services/searchService";
 import {Router} from "@angular/router";
+import {NotificationService} from "./shared/services/NotificationService";
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent {
   searchString = "";
   public isLogged:boolean = false;
   public loggedUser: User|undefined;
-  constructor(public dialog: MatDialog, private router: Router, private authService: AuthService, private searchService: SearchService) {
+  notificationCount: number = 0;
+  constructor(public dialog: MatDialog, private router: Router, private authService: AuthService, private searchService: SearchService, private notificationsService: NotificationService) {
   }
 
 
@@ -29,6 +31,10 @@ export class AppComponent {
     this.authService.userEvent.subscribe(value => {
       this.loggedUser = this.authService.loggedUser;
     });
+
+    this.notificationsService.getNotificationsCount().subscribe(response => {
+      this.notificationCount = response;
+    })
 
     this.authService.getCurrentUser();
 
