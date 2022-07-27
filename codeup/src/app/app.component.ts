@@ -23,6 +23,16 @@ export class AppComponent {
   public loggedUser: User|undefined;
   notificationCount: number = 0;
   constructor(public dialog: MatDialog, private router: Router, private authService: AuthService, private searchService: SearchService, private notificationsService: NotificationService) {
+    this.notificationsService.callEvent.subscribe(data => {
+       this.notificationsService.getNotificationsCount().subscribe(response => {
+         this.notificationCount = response;
+       });
+    });
+    setTimeout(() => {
+      this.notificationsService.getNotificationsCount().subscribe(response => {
+        this.notificationCount = response;
+      });
+    }, 60000);
   }
 
 
