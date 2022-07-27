@@ -88,10 +88,6 @@
                           </div>
 
                 <div style="display: flex; justify-content: flex-end; margin-bottom: 10px">
-                  <button style="background-color: red; display: inline-block; margin-right: 5px" mat-raised-button
-                          color="accent" (click)="respondId = null; commentValue = ''; respondUsername = undefined">
-                    Cancel
-                  </button>
                   <button style="background-color: #FFC500; display: inline-block" mat-raised-button color="accent"
                           (click)="sendComment()" [disabled]="allContent.length <=  0">{{editMessage ? 'Edit' : 'Send'}}
                   </button>
