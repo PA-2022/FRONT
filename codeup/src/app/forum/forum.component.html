@@ -1,8 +1,8 @@
 <div class="container top-container" style="background-color: {{forum.color}}">
   <div class="row">
     <div class="col col-md-8" style="margin: auto; margin-top: 2vh; padding: 0">
-      <img style="max-width: 15%; border-radius: 100%; margin-top: 10px; display: inline"
-           src="https://a.thumbs.redditmedia.com/zDOFJTXd6fmlD58VDGypiV94Leflz11woxmgbGY6p_4.png">
+      <button class="not-disabled" disabled mat-fab style="display: inline; font-size: 7vw; border-radius: 50%; background-color: {{forum.color}}; width: 9vw; height: 9vw">{{forum.title.charAt(0)}}{{ forum.title.length > 1 ? forum.title.charAt(forum.title.length - 1) : ''}}</button>
+
       <h1 style=" display: inline; margin-left: 2vw">{{forum.title}}</h1>
       <button *ngIf="loggedUser" style="display: inline; margin-left: 2vw; background-color: #FFC500" mat-raised-button color="accent" (click)="joinOrQuit()">{{hasJoinned ? 'Quit' : 'Join'}}</button>
     </div>
