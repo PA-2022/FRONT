@@ -1,0 +1,57 @@
+<div class="container" style="max-width: 100%; min-height: 100vh; background-color: #dae0e6; padding-bottom: 20px">
+  <div class="row">
+    <div class="col col-md-8 sort-container white-block">
+      <h1 style="padding: 5px">Create a forum</h1>
+      <hr>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput
+               [(ngModel)]="title"
+               type="text"
+               name="title"
+               required
+               minlength="1"
+               maxlength={{maxLengthTitle+1}}>
+        <div class="alert-danger" *ngIf="title && (title.length < 1 || title.length >= maxLengthTitle)">
+          <div *ngIf="title.length === 0">Title is required</div>
+          <div *ngIf="title.length < 1">
+            Title must be at least 1 characters
+          </div>
+          <div *ngIf="title.length >= maxLengthTitle">
+            Title must be at most 20 characters
+          </div>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput
+               [(ngModel)]="description"
+               type="text"
+               name="description"
+               required
+               minlength="1"></textarea>
+        <div class="alert-danger" *ngIf="description && (description.length <= 20)">
+          <div *ngIf="description.length === 0">Description is required</div>
+          <div *ngIf="description.length <= 20">
+            Description must be at least 20 characters
+          </div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill" >
+        <mat-label>Color</mat-label>
+        <input style="width: fit-content" matInput [(colorPicker)]="color" [ngModel]="color"/>
+        <div style="width: 10vw; height: 20px; border-radius: 5px; background-color: {{color}}; display:inline-block"></div>
+      </mat-form-field>
+
+      <br>
+      <div class="float-right">
+        <button style="background-color: #FFC500; float: right" mat-raised-button color="accent" (click)="createForum()" [disabled]="isDisabled() || loading ">Create Forum</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+

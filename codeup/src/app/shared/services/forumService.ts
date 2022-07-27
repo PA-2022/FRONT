@@ -24,4 +24,8 @@ export class ForumService {
     return this.httpclient.get<Forum>(
       this.API_URL + 'forums/0' + id)
   }
+
+  createForum(forum: any) {
+    return this.httpclient.post(this.API_URL + 'forums/add', forum)
+  }
 }

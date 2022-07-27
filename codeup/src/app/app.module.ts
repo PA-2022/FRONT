@@ -46,6 +46,8 @@ import { ConditionsComponent } from './conditions/conditions.component';
 import { UserPostsComponent } from './user-posts/user-posts.component';
 import {MatBadgeModule} from "@angular/material/badge";
 import { NotificationsComponent } from './notifications/notifications.component';
+import { CreateForumComponent } from './create-forum/create-forum.component';
+import {ColorPickerModule} from "ngx-color-picker";
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     CgvComponent,
     ConditionsComponent,
     UserPostsComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    CreateForumComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +98,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     HttpClientModule,
     MatSnackBarModule,
     AutosizeModule,
-    MatBadgeModule
+    MatBadgeModule,
+    ColorPickerModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},

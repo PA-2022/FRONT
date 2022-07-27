@@ -24,8 +24,11 @@
           New
         </button>
       </div>
+      <div *ngIf="posts && posts.length === 0  " class="col col-md-12" style="margin: auto; padding-top: 4vh">
+        <h2>No results available ... 😥</h2>
+      </div>
       <div class="col col-md-12" *ngFor="let post of posts">
-        <div class="white-block sort-container">
+        <div class="white-block sort-container">F
           <div class="row">
             <div class="col-md-2">
               <div class="center">
@@ -50,8 +53,8 @@
         <div class="col col-md-3 sort-container white-block about" style="background-color: transparent">
         </div>
       </div>
-
     </div>
+
     <div class="col col-md-3 sort-container white-block about">
       <h2 style="
          background-image: url('https://media.discordapp.net/attachments/951109231099133972/971419158505984050/doodad.png');

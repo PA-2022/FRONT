@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {ForumComponent} from "./forum/forum.component";
 import {PostComponent} from "./post/post.component";
@@ -16,47 +16,50 @@ import {CgvComponent} from "./cgv/cgv.component";
 import {ConditionsComponent} from "./conditions/conditions.component";
 import {UserPostsComponent} from "./user-posts/user-posts.component";
 import {NotificationsComponent} from "./notifications/notifications.component";
+import {CreateForumComponent} from "./create-forum/create-forum.component";
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  {path: '', component: HomeComponent},
   {
-    path : 'forum/:id',
+    path: 'forum/:id',
     component: ForumComponent,
     resolve: {
       forumResolver: ForumResolver
     },
   },
-  { path : 'comment/:id', component: ForumComponent },
+  {path: 'comment/:id', component: ForumComponent},
   {
-    path : 'post/:id',
+    path: 'post/:id',
     component: PostComponent,
     resolve: {
       postResolver: PostResolver
     }
   },
-  { path : 'search/:search', component: SearchComponent },
-  { path: 'change-password/:token', component: ResetpwdComponent },
-  { path: 'user-lost-password', component: LostPwdComponent},
-  { path: 'terms-and-conditions', component: CgvComponent},
-  { path: 'privacy-policy', component: ConditionsComponent},
-  { path: 'user-posts/:userId', component: UserPostsComponent},
+  {path: 'search/:search', component: SearchComponent},
+  {path: 'change-password/:token', component: ResetpwdComponent},
+  {path: 'user-lost-password', component: LostPwdComponent},
+  {path: 'terms-and-conditions', component: CgvComponent},
+  {path: 'privacy-policy', component: ConditionsComponent},
+  {path: 'user-posts/:userId', component: UserPostsComponent},
   {path: 'notifications', component: NotificationsComponent},
+  {path: 'forum-create', component: CreateForumComponent},
   {
-    path : 'account/:id',
+    path: 'account/:id',
     component: AccountComponent,
     resolve: {
       userResolver: UserResolver
     },
   },
-  { path : 'my-account', component: AccountComponent },
-  { path : 'post-create', component: CreatePostComponent },
-  { path: '404', component: NotFoundComponent },
-  { path: '**', component: NotFoundComponent },
+  {path: 'my-account', component: AccountComponent},
+  {path: 'post-create', component: CreatePostComponent},
+  {path: '404', component: NotFoundComponent},
+  {path: '**', component: NotFoundComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
