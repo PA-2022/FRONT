@@ -230,8 +230,8 @@ export class PostComponent implements OnInit {
     this.addContentDiv.nativeElement.style.visibility = "hidden";
   }
 
-  addCode(){
-    this.allContent.push(new NewContentItem(CodeEditorComponent, {index: uuidv4(), code: this.defaultCode, language: "python"}));
+  addCode( language = "python", code = "# Write your code here") {
+    this.allContent.push(new NewContentItem(CodeEditorComponent, {index: uuidv4(), code: code, language: language}));
     let newCode = this.codeEditorBox.createComponent<ContentEditorComponent>(this.allContent[this.allContent.length - 1].component);
     newCode.instance.data = this.allContent[this.allContent.length - 1].data;
 
@@ -266,6 +266,13 @@ export class PostComponent implements OnInit {
     const date2 = new Date(date2Str);
     return( date1.getDate() == date2.getDate() && date1.getFullYear() == date2.getFullYear()
       && date1.getMonth() == date2.getMonth() && date1.getHours() == date2.getHours());
+
+  }
+
+  shareCode(language: string | null, code: string){
+    if(language != null){
+      this.addCode(language, code);
+    }
 
   }
 }

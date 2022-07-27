@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ContentEditorComponent } from '../shared/entities/ContentEditorComponent';
+import { LanguagesTemplate, languagesTemplate } from '../shared/entities/languageTemplate';
 import { CodeEditorService } from '../shared/services/code-editor.service';
 import { CodeSourceDao } from './codeSourceDao';
 import { OutputDao } from './outputDao';
@@ -13,10 +14,8 @@ export class CodeEditorComponent implements OnInit, OnChanges, ContentEditorComp
   @Input() output: String | undefined;
   @Input() data: any;
   @Output() deleteEvent = new EventEmitter<number>();
-  @Input() languages = [
-    {name: 'python', value: 'python'},
-    {name: 'javascript', value: 'js'},
-  ]
+  @Input() languages = languagesTemplate;
+  
 
   @ViewChild('languageSelector')
   languageSelector!: ElementRef;
@@ -39,7 +38,7 @@ export class CodeEditorComponent implements OnInit, OnChanges, ContentEditorComp
 
     this.codeEditorService.postCode(codeSource).subscribe(
       (response) => {
-        this.output = JSON.stringify(response.output);
+        this.output = JSON.stringify(response.output).slice(1, -1);
         console.log(response);
       }
     );
@@ -55,7 +54,13 @@ export class CodeEditorComponent implements OnInit, OnChanges, ContentEditorComp
   }
 
   onLanguageChange(event: any){
+    console.log(event);
+    
     this.data.language = event;
+
+    let language: any = this.languages?.languageTemplate.find(lang => lang.value === event);
+    this.data.code = language.defaultCode;
+
   }
 
 

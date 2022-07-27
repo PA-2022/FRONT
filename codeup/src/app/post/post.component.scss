@@ -232,3 +232,24 @@ a {
   top: 35px;
 
 }
+
+.button-share{
+  align-self: flex-end;
+  border: none;
+  background: none;
+  position: relative;
+  top: 30px;
+}
+
+.button-img-share{
+  width: 15px;
+  height: 15px;
+}
+
+.button-share-box{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+}

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CodeSourceDao } from '../code-editor/codeSourceDao';
 import { CodeEditorService } from '../shared/services/code-editor.service';
 
@@ -29,13 +29,12 @@ export class CodeViewerComponent implements OnInit {
 
     this.codeEditorService.postCode(codeSource).subscribe(
       (response) => {
-        this.output = JSON.stringify(response.output);
+        this.output = JSON.stringify(response.output).slice(1, -1);
         console.log(response);
       }
     );
 
   }
-
 
   tabIndentation(): void {
     console.log("tabIndent");

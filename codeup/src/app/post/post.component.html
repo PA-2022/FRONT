@@ -34,6 +34,12 @@
               <p>{{content.content}}</p>
             </div>
             <div *ngIf="content.type === 1">
+              <div class="button-share-box">
+                <button (click)="shareCode(content.language, content.content)" class="button-share">
+                  <img src="../../assets/icons/fork.png" alt="" class="button-img-share">
+                </button>
+              </div>
+
               <app-code-viewer [content]="content" ></app-code-viewer>
             </div>
           </div>
@@ -72,7 +78,6 @@
           <div class="col-md-12">
             <div class="blog-comment">
               <h3 class="text-success">Comments</h3>
-              <hr/>
               <div>
                           <div #target class="editor-box">
                             <div class="code-editor-box" #codeEditorBox>
@@ -109,9 +114,6 @@
                       class="pull-right"><a style="color: #82b440; cursor: pointer;"
                                             (click)="scrollToElement(target); respondId = item.comment.comment.id; respondUsername = item.comment.user.username"><small>Reply</small></a></i>
                       <label style="float: right">
-                        <small style="cursor: pointer; color: cornflowerblue"
-                               *ngIf="loggedUser && item.comment.user.id === loggedUser.id"
-                               (click)="scrollToElement(target); editSetup(item.comment.comment)">edit</small> &nbsp;
                         <small style="cursor: pointer; color: red"
                                *ngIf="loggedUser && item.comment.user.id === loggedUser.id"
                                (click)="deleteComment(item.comment.comment.id)">delete</small>
@@ -125,6 +127,11 @@
                         <p>{{content.content}}</p>
                       </div>
                       <div *ngIf="content.type === 1">
+                        <div class="button-share-box">
+                          <button (click)="shareCode(content.language, content.content)" class="button-share">
+                            <img src="../../assets/icons/fork.png" alt="" class="button-img-share">
+                          </button>
+                        </div>
                         <app-code-viewer [content]="content" ></app-code-viewer>
                       </div>
                     </div>
@@ -146,9 +153,6 @@
                           <i class="pull-right"><a
                             (click)="scrollToElement(target); respondId = item.comment.comment.id; respondUsername = response.user.username"><small>Reply</small></a></i>
                         <label style="float: right">
-                          <small style="cursor: pointer; color: cornflowerblue"
-                                 *ngIf="loggedUser && response.user.id === loggedUser.id"
-                                 (click)="scrollToElement(target); editSetup(response.comment)">edit</small> &nbsp;
                           <small style="cursor: pointer; color: red"
                                  *ngIf="loggedUser && response.user.id === loggedUser.id"
                                  (click)="deleteComment(response.comment.id)">delete</small>
@@ -161,6 +165,11 @@
                             <p>{{content.content}}</p>
                           </div>
                           <div *ngIf="content.type === 1">
+                            <div class="button-share-box">
+                              <button (click)="shareCode(content.language, content.content)" class="button-share">
+                                <img src="../../assets/icons/fork.png" alt="" class="button-img-share">
+                              </button>
+                            </div>
                             <app-code-viewer [content]="content" ></app-code-viewer>
                           </div>
                         </div>

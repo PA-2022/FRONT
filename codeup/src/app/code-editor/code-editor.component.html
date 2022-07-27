@@ -2,7 +2,7 @@
   <div class="select-delete-box">
     <select #languageSelector [ngModel]="data.language" (ngModelChange)="onLanguageChange($event)" class="language-selector">
       <option value="" disabled>Choose a language</option>
-      <option *ngFor="let language of languages" [value]="language.value">{{language.name}}</option>
+      <option *ngFor="let language of languages?.languageTemplate" [value]="language.value">{{language.name}}</option>
     </select>
     <button class="delete-button" (click)="destroyComponent()"><img class="delete-image-button" src="../../assets/icons/close.png" alt=""></button>
   </div>
@@ -17,8 +17,8 @@
     <button class="run-button" (click)="runCode(codeEditor.value)">
       <img class="run-image-button" src="../../assets/icons/play.png" alt="">
     </button>
-    <div class="output-text" [innerHTML]="output">
-    </div>
+    <div ngResizable class="output-text" [innerHTML]="output">
+    </div> 
   </div>
 </div>
 
