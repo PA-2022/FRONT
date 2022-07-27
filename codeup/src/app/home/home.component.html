@@ -16,6 +16,9 @@
           <button *ngIf="loggedUser" style="background-color: #FFC500; float: right"
                   mat-raised-button color="accent" (click)="createPost()">Create a post
           </button>
+        <button *ngIf="loggedUser" style="background-color: #FF9600; float: right; margin-right: 10px"
+                  mat-raised-button color="accent" (click)="createForum()">Create a forum
+          </button>
 
       </div>
       <div class="col col-md-12" *ngFor="let post of posts">

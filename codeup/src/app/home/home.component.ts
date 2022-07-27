@@ -102,4 +102,9 @@ export class HomeComponent implements OnInit {
       this.getPost();
     }
   }
+
+  createForum() {
+    this.router.navigate(
+      ['/forum-create']);
+  }
 }
