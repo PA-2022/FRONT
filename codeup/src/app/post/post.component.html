@@ -28,7 +28,7 @@
           </div>
           <br>
           <h2 *ngIf="post">{{post.title}}</h2>
-          <a href="/forum/{{forum.id}}" style="background-color: {{forum.color}}" class="tag" *ngIf="forum">{{forum.title}}</a>
+          <a href="/forum/{{forum.id}}" style="background-color: {{forum.color}}; display:block; margin-bottom:20px; margin-top:20px;" class="tag" *ngIf="forum">{{forum.title}}</a>
           <div *ngFor="let content of contents">
             <div *ngIf="content.type === 0">
               <p>{{content.content}}</p>
