@@ -18,7 +18,7 @@ export class CodeEditorService {
 
   postCode(codeSourceSent: CodeSourceDao): Observable<OutputDao> {
     const headers = { 'content-type': 'application/json'};
-    const body = JSON.stringify(codeSourceSent).replace("&amp;", "&").replace("n&lt;", "<")
+    const body = JSON.stringify(codeSourceSent).replace("&amp;", "&").replace("&lt;", "<")
       .replace("&gt;", ">");
     console.log(body);
 
