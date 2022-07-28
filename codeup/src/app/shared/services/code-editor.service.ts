@@ -18,7 +18,8 @@ export class CodeEditorService {
 
   postCode(codeSourceSent: CodeSourceDao): Observable<OutputDao> {
     const headers = { 'content-type': 'application/json'};
-    const body = JSON.stringify(codeSourceSent);
+    const body = JSON.stringify(codeSourceSent).replace("&amp;", "&").replace("n&lt;", "<")
+      .replace("&gt;", ">");
     console.log(body);
 
     return this.http.post<OutputDao>(this.configUrl, body,{'headers':headers});
