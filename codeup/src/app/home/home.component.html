@@ -41,9 +41,9 @@
                 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}">
                 <p style="display: inline; font-weight: bold">&nbsp;&nbsp;{{post.user}}</p>
                 <p style="display: inline; color: dimgray">
-                  &nbsp;&nbsp;Published {{post.post.creationDate | date: "MMM dd, YYYY hh:mm"}}<label
+                  &nbsp;&nbsp;Published {{post.post.creationDate | date: "MMM dd, YYYY HH:mm"}}<label
                   *ngIf="!isSameDate(post.post.creationDate, post.post.lastUpdateDate)"> -
-                  Edited {{post.post.lastUpdateDate | date:"MMMM dd, YYYY hh:mm"}}</label></p>
+                  Edited {{post.post.lastUpdateDate | date:"MMMM dd, YYYY HH:mm"}}</label></p>
               </div>
               <br>
               <h2>{{post.post.title}}</h2>

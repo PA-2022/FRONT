@@ -21,7 +21,7 @@
               {{user ? user.username : "deleted"}} . </a>
             <p *ngIf="post" style="display: inline; color: dimgray">
               &nbsp;&nbsp;Published {{post.creationDate | date: "MMM dd, YYYY"}}
-              <label *ngIf="!isSameDate(post.creationDate, post.lastUpdateDate)"> - Edited {{post.lastUpdateDate | date:"MMMM dd, YYYY hh:mm"}}</label>
+              <label *ngIf="!isSameDate(post.creationDate, post.lastUpdateDate)"> - Edited {{post.lastUpdateDate | date:"MMMM dd, YYYY HH:mm"}}</label>
             </p>
             <button *ngIf="loggedUser && loggedUser.id === post.userId" style="display: inline; float: right; background-color: #FFC500" mat-raised-button
                     color="accent" (click)="deletePost()">Delete post</button>

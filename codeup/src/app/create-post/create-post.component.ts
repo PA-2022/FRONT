@@ -42,7 +42,7 @@ export class CreatePostComponent implements AfterViewInit {
   container!: ViewContainerRef;
   maxLengthTitle = 64;
   htmlContent: any;
-  forumId: number = this.hiddenParamsService.getParam() ?? 1;
+  forumId: number = this.hiddenParamsService.getParam() ?? 4;
   forum: any = undefined;
   content: any = null;
   code: any = "// Write your code here";
