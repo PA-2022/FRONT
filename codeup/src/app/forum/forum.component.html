@@ -28,7 +28,7 @@
         <h2>No results available ... 😥</h2>
       </div>
       <div class="col col-md-12" *ngFor="let post of posts">
-        <div class="white-block sort-container">F
+        <div class="white-block sort-container">
           <div class="row">
             <div class="col-md-2">
               <div class="center">
@@ -42,7 +42,7 @@
                 <img style="display: inline; width: 30px; height: 30px; border-radius: 50%" src="{{post.userImage ? post.userImage :
                 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}">
                 <p style="display: inline; font-weight: bold">&nbsp;&nbsp;{{post.user}}</p>
-                <p style="display: inline; color: dimgray">&nbsp;&nbsp;Published {{post.post.creationDate | date: "MMM dd, YYYY HH:MM"}}<label *ngIf="!isSameDate(post.post.creationDate, post.post.lastUpdateDate)"> - Edited {{post.post.lastUpdateDate | date:"MMMM dd, YYYY HH:MM"}}</label></p>
+                <p style="display: inline; color: dimgray">&nbsp;&nbsp;Published {{post.post.creationDate | date: "MMM dd, YYYY hh:mm"}}<label *ngIf="!isSameDate(post.post.creationDate, post.post.lastUpdateDate)"> - Edited {{post.post.lastUpdateDate | date:"MMMM dd, YYYY HH:MM"}}</label></p>
               </div>
               <br>
               <h2>{{post.post.title}}</h2>

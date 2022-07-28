@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit {
   @HostListener("window:scroll", [])
   onScroll(): void {
     if ((window.innerHeight + window.scrollY) >= (document.body.scrollHeight -1)) {
-      this.offset = this.limit;
+      this.offset += this.limit;
       this.loading = true;
       this.getPost();
     }

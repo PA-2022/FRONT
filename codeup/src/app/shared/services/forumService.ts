@@ -22,7 +22,7 @@ export class ForumService {
 
   getForumById(id: number): Observable<Forum> {
     return this.httpclient.get<Forum>(
-      this.API_URL + 'forums/0' + id)
+      this.API_URL + 'forums/' + id)
   }
 
   createForum(forum: any) {

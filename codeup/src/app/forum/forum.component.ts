@@ -30,7 +30,7 @@ export class ForumComponent implements OnInit {
   @HostListener("window:scroll", [])
   onScroll(): void {
     if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-      this.offset = this.limit;
+      this.offset += this.limit;
       this.loading = true;
       this.getPost();
     }
